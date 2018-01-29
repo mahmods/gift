@@ -196,6 +196,7 @@ class Frontend extends Controller
 			// Check email and password and redirect to the account
 			$data['email'] = htmlspecialchars(request()->email);
 			$data['password'] = md5(request()->password);
+			dd($data);
 			if(empty($data['email']) or empty($data['password'])){
 				$error = 'All fields are required';
 			} else {

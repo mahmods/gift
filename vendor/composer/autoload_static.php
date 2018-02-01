@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit20193943e3a5b1f26cdf04cd4601e4fe
+class ComposerStaticInit6148c5a0e16f2f171eb22640e4d45322
 {
     public static $files = array (
         '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
@@ -339,6 +339,7 @@ class ComposerStaticInit20193943e3a5b1f26cdf04cd4601e4fe
         'App\\Order' => __DIR__ . '/../..' . '/app/Order.php',
         'App\\Os' => __DIR__ . '/../..' . '/app/Os.php',
         'App\\Page' => __DIR__ . '/../..' . '/app/Page.php',
+        'App\\Password_reset' => __DIR__ . '/../..' . '/app/Password_reset.php',
         'App\\Payment' => __DIR__ . '/../..' . '/app/Payment.php',
         'App\\Post' => __DIR__ . '/../..' . '/app/Post.php',
         'App\\Product' => __DIR__ . '/../..' . '/app/Product.php',
@@ -364,46 +365,38 @@ class ComposerStaticInit20193943e3a5b1f26cdf04cd4601e4fe
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
-        'CreateAdministratorsTable' => __DIR__ . '/../..' . '/database/migrations/new/output/2017_12_11_053330/2017_12_11_053330_create_administrators_table.php',
-        'CreateBlocsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_blocs_table.php',
-        'CreateBlogTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_blog_table.php',
-        'CreateBrowsersTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_browsers_table.php',
-        'CreateCategoriesTable' => __DIR__ . '/../..' . '/database/migrations/new/output/2017_12_11_053330/2017_12_11_053330_create_categories_table.php',
-        'CreateCategoryTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_category_table.php',
-        'CreateConfigTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_config_table.php',
-        'CreateCountriesTable' => __DIR__ . '/../..' . '/database/migrations/new/output/2017_12_11_053330/2017_12_11_053330_create_countries_table.php',
-        'CreateCountryTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_country_table.php',
-        'CreateCouponsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_coupons_table.php',
-        'CreateCurrenciesTable' => __DIR__ . '/../..' . '/database/migrations/new/output/2017_12_11_053330/2017_12_11_053330_create_currencies_table.php',
-        'CreateCurrencyTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_currency_table.php',
-        'CreateCustomersTable' => __DIR__ . '/../..' . '/database/migrations/2017_11_29_193642_create_administrators_table - Copy.php',
-        'CreateFieldsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_fields_table.php',
-        'CreateFooterTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_footer_table.php',
-        'CreateLangsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_langs_table.php',
-        'CreateLanguagesTable' => __DIR__ . '/../..' . '/database/migrations/new/output/2017_12_11_053330/2017_12_11_053330_create_languages_table.php',
-        'CreateMenuTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_menu_table.php',
-        'CreateOrdersTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_orders_table.php',
-        'CreateOsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_os_table.php',
-        'CreatePagesTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_pages_table.php',
-        'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_password_resets_table.php',
-        'CreatePasswordresetsTable' => __DIR__ . '/../..' . '/database/migrations/new/output/2017_12_11_053330/2017_12_11_053330_create_password_resets_table.php',
-        'CreatePaymentsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_payments_table.php',
-        'CreateProductsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_products_table.php',
-        'CreateReferrerTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_referrer_table.php',
-        'CreateReferrersTable' => __DIR__ . '/../..' . '/database/migrations/new/output/2017_12_11_053330/2017_12_11_053330_create_referrers_table.php',
-        'CreateReviewsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_reviews_table.php',
-        'CreateShippingTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_shipping_table.php',
-        'CreateSliderTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_slider_table.php',
-        'CreateSlidesTable' => __DIR__ . '/../..' . '/database/migrations/new/output/2017_12_11_053330/2017_12_11_053330_create_slides_table.php',
-        'CreateStyleTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_style_table.php',
-        'CreateSubscribersTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_subscribers_table.php',
-        'CreateTemplatesTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_templates_table.php',
-        'CreateTicketsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_tickets_table.php',
-        'CreateTokensTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_tokens_table.php',
-        'CreateTrackingTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_tracking_table.php',
-        'CreateTranslateTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_translate_table.php',
-        'CreateTranslationsTable' => __DIR__ . '/../..' . '/database/migrations/new/output/2017_12_11_053330/2017_12_11_053330_create_translations_table.php',
-        'CreateVisitorsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_10_021720_create_visitors_table.php',
+        'CreateAdministratorsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_administrators_table.php',
+        'CreateBlocsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_blocs_table.php',
+        'CreateBlogTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_blog_table.php',
+        'CreateBrowsersTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_browsers_table.php',
+        'CreateCategoriesTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_categories_table.php',
+        'CreateConfigTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_config_table.php',
+        'CreateCountriesTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_countries_table.php',
+        'CreateCouponsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_coupons_table.php',
+        'CreateCurrenciesTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_currencies_table.php',
+        'CreateCustomersTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_customers_table.php',
+        'CreateFieldsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_fields_table.php',
+        'CreateFooterTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_footer_table.php',
+        'CreateLanguagesTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_languages_table.php',
+        'CreateMenuTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_menu_table.php',
+        'CreateOrdersTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_orders_table.php',
+        'CreateOsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_os_table.php',
+        'CreatePagesTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_pages_table.php',
+        'CreatePasswordresetsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_password_resets_table.php',
+        'CreatePaymentsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_payments_table.php',
+        'CreateProductsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_products_table.php',
+        'CreateReferrersTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_referrers_table.php',
+        'CreateReviewsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_reviews_table.php',
+        'CreateShippingTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_shipping_table.php',
+        'CreateSlidesTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_slides_table.php',
+        'CreateStyleTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_style_table.php',
+        'CreateSubscribersTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_subscribers_table.php',
+        'CreateTemplatesTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_templates_table.php',
+        'CreateTicketsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_tickets_table.php',
+        'CreateTokensTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_tokens_table.php',
+        'CreateTrackingTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_tracking_table.php',
+        'CreateTranslationsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_translations_table.php',
+        'CreateVisitorsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_01_000000_create_visitors_table.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/DayOfMonthField.php',
@@ -1720,6 +1713,7 @@ class ComposerStaticInit20193943e3a5b1f26cdf04cd4601e4fe
         'Illuminate\\Support\\NamespacedItemResolver' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/NamespacedItemResolver.php',
         'Illuminate\\Support\\Optional' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Optional.php',
         'Illuminate\\Support\\Pluralizer' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Pluralizer.php',
+        'Illuminate\\Support\\ProcessUtils' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/ProcessUtils.php',
         'Illuminate\\Support\\ServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/ServiceProvider.php',
         'Illuminate\\Support\\Str' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Str.php',
         'Illuminate\\Support\\Testing\\Fakes\\BusFake' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Testing/Fakes/BusFake.php',
@@ -3677,10 +3671,10 @@ class ComposerStaticInit20193943e3a5b1f26cdf04cd4601e4fe
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit20193943e3a5b1f26cdf04cd4601e4fe::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit20193943e3a5b1f26cdf04cd4601e4fe::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit20193943e3a5b1f26cdf04cd4601e4fe::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit20193943e3a5b1f26cdf04cd4601e4fe::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6148c5a0e16f2f171eb22640e4d45322::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6148c5a0e16f2f171eb22640e4d45322::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit6148c5a0e16f2f171eb22640e4d45322::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit6148c5a0e16f2f171eb22640e4d45322::$classMap;
 
         }, null, ClassLoader::class);
     }

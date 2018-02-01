@@ -111,7 +111,8 @@ class Frontend extends Controller
 		if(!empty($this->cfg->twitter)){$social['twitter'] = $this->cfg->twitter;}
 		if(!empty($this->cfg->tumblr)){$social['tumblr'] = $this->cfg->tumblr;}
 		$links = $this->footer;
-		return view('footer')->with(compact('social','links'))->render();
+		$tp = url("/themes/".$this->cfg->theme);
+		return view('footer')->with(compact('social','links', 'tp'))->render();
 	}
 	public function language($language_code)
 	{

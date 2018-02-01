@@ -14,5 +14,8 @@
 			</ul>
 		</div>
 	</div>
+		<!-- Required JS Files -->
+		<script src="<?=$tp ?>/assets/js/tornado.js"></script>
+		<script src="<?=$tp ?>/assets/js/script-rtl.js"></script>
 	</body>
 </html>

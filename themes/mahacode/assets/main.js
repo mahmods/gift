@@ -80,22 +80,31 @@ $(document).ready(function(){
 	$.ajaxSetup({ cache: false });
 	// Cart products
 	function cart(){
-		$("#cart-content").html('<div class="loading"></div>');
+		//$("#cart-content").html('<div class="loading"></div>');
 		$.getJSON('api/cart', function (data){
 			//$("#cart-header").html(data.header);
 			if (data.count > 0){
 				if ($(".cart-counter").length) {
 					$( ".cart-counter" ).html(data.count);
-				} else {
-					$( ".toggle-cart" ).append('<span class="cart-counter">'+data.count+'</span>');
 				}
 				var cart = '';
 				$.each(data.products, function(index,elem){
-					cart += '<div class="cart-product"><img src="assets/products/'+elem.images+'"><div class="details"><h6>'+elem.title+'<i data-id="'+elem.id+'" class="remove-cart icon-trash"></i></h6><p>'+elem.price+' x '+elem.quantity+'<b>'+elem.total+'</b><br>'+elem.options+'</p></div><div class="clearfix"></div></div>';
+					//cart += 'data-id="'+elem.id+'" class="remove-cart icon-trash"></i></h6><p>'+elem.price+' x '+elem.quantity+'<b>'+elem.total+'</b><br>'+elem.options+'</p></div><div class="clearfix"></div></div>';
+					cart += `
+					<!-- Cart Item -->
+					<li class="table-style">
+						<a href="#" class="image"><img src="assets/products/${elem.images}" alt=""></a>
+						<div class="info">
+							<a href="product-single.html"><h3>${elem.title}</h3></a>
+							<span class="quantity">x2</span>
+							<a href="#" class="remove-item ti-close-a"></a>
+						</div>
+					</li>
+					`
 				});
-				cart += data.coupon;
-				cart += '<div class="btn-clear"></div><button class="cart-btn cart-checkout bg">'+checkout+'</button>';
-				$("#cart-content").html(cart);
+				//cart += data.coupon;
+				//cart += '<div class="btn-clear"></div><button class="cart-btn cart-checkout bg">'+checkout+'</button>';
+				$("#cart-content ul").html(cart);
 			} else {
 				$("#cart-content").html('<div class="empty-cart"><i class="icon-basket"></i><h5>'+empty_cart+'</h5></div>');
 				$( ".cart-counter" ).remove();
@@ -113,10 +122,10 @@ $(document).ready(function(){
 		cart();
 	});
 	// Cart scrolling
-	$('#cart-content').slimScroll({
+	/* $('#cart-content').slimScroll({
         height: 'auto',
 		scrollTo : 0,
-    });
+    }); */
 	// Apply coupon code
 	$("body").on('click','#apply',function() {
         var code = $("#code").val();

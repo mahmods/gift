@@ -56,7 +56,9 @@
                 <form class="search-box">
                     <input id="search-input" type="text" placeholder="كلمات البحث">
 					<input type="submit" value="ابحث الان">
-					<div id="search-results"></div>
+					<div id="search-results">
+					<!-- TODO search results needs redesign -->
+					</div>
                 </form>
                 
                 <div class="action-area">
@@ -120,47 +122,19 @@
                         </div>
                     </div>
                     <!-- // Wishlist -->
-                    
+                    <!-- TODO cart integration -->
                     <!-- Cart -->
-                    <div class="cart-area">
+                    <div class="cart-area toggle-cart">
                         <a href="#" class="cart-btn">
                             <i class="basket-icon"></i>
-                            <h3>سله التسوق <span>عدد المنتجات : 50</span></h3>
+                            <h3>سله التسوق <span class="cart-counter"></span></h3>
                         </a>
                         <div id="cart-content" class="cart-dropdown">
-                            <ul>
-                                <!-- Cart Item -->
-                                <li class="table-style">
-                                    <a href="#" class="image"><img src="img/cart.png" alt=""></a>
-                                    <div class="info">
-                                        <a href="product-single.html"><h3>سماعات الكترونيه حديثه على شكل روبوت</h3></a>
-                                        <span class="quantity">x2</span>
-                                        <a href="#" class="remove-item ti-close-a"></a>
-                                    </div>
-                                </li>
-                                <!-- Cart Item -->
-                                <li class="table-style">
-                                    <a href="#" class="image"><img src="img/cart.png" alt=""></a>
-                                    <div class="info">
-                                        <a href="product-single.html"><h3>سماعات الكترونيه حديثه على شكل روبوت</h3></a>
-                                        <span class="quantity">x2</span>
-                                        <a href="#" class="remove-item ti-close-a"></a>
-                                    </div>
-                                </li>
-                                <!-- Cart Item -->
-                                <li class="table-style">
-                                    <a href="#" class="image"><img src="img/cart.png" alt=""></a>
-                                    <div class="info">
-                                        <a href="product-single.html"><h3>سماعات الكترونيه حديثه على شكل روبوت</h3></a>
-                                        <span class="quantity">x2</span>
-                                        <a href="#" class="remove-item ti-close-a"></a>
-                                    </div>
-                                </li>
-                            </ul>
+                            <ul></ul>
                             <h5>الاجمالي : <span>15864$</span></h5>
                             <h5><a href="#">مشاهدة كل المنتجات</a></h5>
                             <a href="cart.html" class="btn-sks">عربه التسوق</a>
-                            <a href="checkout.html" class="btn-sks">انهاء الطلب</a>
+                            <a href="ja" class="btn-sks cart-checkout">انهاء الطلب</a>
                         </div>
                     </div>
                     <!-- // Cart -->
@@ -201,7 +175,7 @@
 		</div>
 		<!-- // Bottom Navigation -->
 		
-		<?php if ($cfg->floating_cart == 1) {?>
+		<?php if (false) {//($cfg->floating_cart == 1) {?>
 		<button class="toggle-cart"><i class="icon-basket"></i></button>
 		<div id="cart">
 			<button class="toggle-cart"><i class="icon-close"></i></button>

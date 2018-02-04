@@ -182,31 +182,31 @@ class Admin extends Controller
 			}
             $data['options'] = json_encode($options);
 			$product = \App\Product::insertGetId($data);
-				if (request()->file('images')) {
-					// Upload selected images to product assets directory
-					$order = 0;
-					$images = array();
-					foreach (request()->file('images') as $file) {
-						$name = $file->getClientOriginalName();
-						if (in_array($file->getClientOriginalExtension(), array("jpg", "png", "gif", "bmp"))){
-							$images[] = $image = $product.'-'.$order.'.'.$file->getClientOriginalExtension();
-							$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'products';
-							$file->move($path,$image);
-							$order++;
-						} else {
-							notices("warning","$name is not a valid format");
-						}
+			if (request()->file('images')) {
+				// Upload selected images to product assets directory
+				$order = 0;
+				$images = array();
+				foreach (request()->file('images') as $file) {
+					$name = $file->getClientOriginalName();
+					if (in_array($file->getClientOriginalExtension(), array("jpg", "png", "gif", "bmp"))){
+						$images[] = $image = $product.'-'.$order.'.'.$file->getClientOriginalExtension();
+						$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'products';
+						$file->move($path,$image);
+						$order++;
+					} else {
+						notices("warning","$name is not a valid format");
 					}
-					\App\Product::where(["id" => $product])->update(["images" => implode(',',$images)]);
 				}
-				if (request()->file('download')) {
-					// Upload the downloadable file to product downloads directory
-					$name = request()->file('download')->getClientOriginalName();
-					$file = md5(time()).'.'.request()->file('download')->getClientOriginalExtension();
-					$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'downloads';
-					request()->file('download')->move($path,$file);
-					\App\Product::where(["id" => $product])->update(["download" => $file]);
-				}
+				\App\Product::where(["id" => $product])->update(["images" => implode(',',$images)]);
+			}
+			if (request()->file('download')) {
+				// Upload the downloadable file to product downloads directory
+				$name = request()->file('download')->getClientOriginalName();
+				$file = md5(time()).'.'.request()->file('download')->getClientOriginalExtension();
+				$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'downloads';
+				request()->file('download')->move($path,$file);
+				\App\Product::where(["id" => $product])->update(["download" => $file]);
+			}
 			notices("success","Product has been added successfully !");
 		}
 		if(isset(request()->edit)){
@@ -280,13 +280,49 @@ class Admin extends Controller
 			$data['name'] = request()->name;
 			$data['path'] = request()->path;
 			$data['parent'] = request()->parent;
-			\App\Category::insert($data);
+			$category = \App\Category::insertGetId($data);
+
+			$data['images'] = '';
+			if (request()->file('images')) {
+				// Upload selected images to Categories assets directory
+				$order = 0;
+				$images = array();
+				foreach (request()->file('images') as $file) {
+					$name = $file->getClientOriginalName();
+					if (in_array($file->getClientOriginalExtension(), array("jpg", "png", "gif", "bmp"))){
+						$images[] = $image = $category.'-'.$order.'.'.$file->getClientOriginalExtension();
+						$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'categories';
+						$file->move($path,$image);
+						$order++;
+					} else {
+						notices("warning","$name is not a valid format");
+					}
+				}
+				\App\Category::where(["id" => $category])->update(["images" => implode(',',$images)]);
+			}
 			notices("success","Category has been added successfully !");
 		}
 		if(isset(request()->edit)){
 			$data['name'] = request()->name;
 			$data['path'] = request()->path;
 			$data['parent'] = request()->parent;
+			if (request()->file('images')) {
+				// Update Category images
+				$order = 0;
+				$images = array();
+				foreach (request()->file('images') as $file) {
+					$name = $file->getClientOriginalName();
+					if (in_array($file->getClientOriginalExtension(), array("jpg", "png", "gif", "bmp"))){
+						$images[] = $image = $action_id.'-'.$order.'.'.$file->getClientOriginalExtension();
+						$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'categories';
+						$file->move($path,$image);
+						$order++;
+					} else {
+						notices("warning","$name is not a valid format");
+					}
+				}
+				\App\Category::where(["id" => $action_id])->update(["images" => implode(',',$images)]);
+			}
 			\App\Category::where(["id" => $action_id])->update($data);
 			notices("success","Category has been edited successfully !");
 		}

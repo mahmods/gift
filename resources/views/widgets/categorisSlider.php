@@ -9,7 +9,7 @@
     <!-- Category Block -->
     <div class="category-block col-s-12 col-m-6 col-l-3">
         <div class="content-box">
-            <a href="products/<?=$category->path?>" class="ti-android-exit" data-src="img/category-1.png"></a>
+            <a href="products/<?=$category->path?>" class="ti-android-exit" data-src="<?=url('/assets/categories/'.image_order($category->images))?>"></a>
             <a href="products/<?=$category->path?>"><h3><?= $category->name ?></h3></a>
         </div>
     </div>

@@ -21,12 +21,16 @@
 									echo '<option value="'.$parent->id.'">'.$parent->name.'</option>';
 								}
 								echo '</select>
+							</div>
+							<div class="form-group">
+							<label class="control-label">Category images</label>
+							<input type="file" class="form-control" name="images[]" multiple="multiple" accept="image/*"  required/>
 						  </div>
 						  <input name="add" type="submit" value="Add category" class="btn btn-primary" />
 					</fieldset>
 				</form>';
 	} elseif($action == "edit") {
-		echo notices().'<form action="" method="post" class="form-horizontal single">
+		echo notices().'<form action="" method="post" enctype="multipart/form-data" class="form-horizontal single">
 				'.csrf_field().'
 				<h5><a href="categories"><i class="icon-arrow-left"></i></a>Edit category</h5>
 					<fieldset>
@@ -46,8 +50,20 @@
 									echo '<option value="'.$parent->id.'" '.($parent->id == $category->parent ? 'selected' : '').'>'.$parent->name.'</option>';
 								}
 								echo '</select>
-						  </div>
-						  <input name="edit" type="submit" value="Edit category" class="btn btn-primary" />
+							</div><div class="row">';
+						  if (!empty($category->images)){
+							  echo '<p>Uploading new images will overwrtite current images .</p>';
+							  $images = explode(',',$category->images);
+							  foreach($images as $image){
+									echo '<img class="col-md-2" src="'.url('/assets/categories/'.$image).'" />';
+							  }
+							  echo '<div class="clearfix"></div>';
+						  }
+						  echo '</div><div class="form-group">
+							<label class="control-label">Category images</label>
+							<input type="file" class="form-control" name="images[]" multiple="multiple" accept="image/*"/>
+							</div>';
+						  echo '<input name="edit" type="submit" value="Edit category" class="btn btn-primary" />
 					</fieldset>
 				</form>';
 	} else {

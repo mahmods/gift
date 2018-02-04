@@ -1,28 +1,48 @@
 <?php echo $header?>
-	<div class="bheader bg">
-		<h2><?=translate('Login')?></h2>
+<!-- Page Content -->
+<div class="container page-content">
+	<!-- Page Head -->
+	<div class="page-head">
+		<h1>تسجيل الدخول</h1>
+		<div class="breadcrumb">
+			<a href="#">الرئيسيه</a>
+			<a href="#">تسجيل الدخول</a>
+		</div>
 	</div>
-	<div class="col-md-4 account">
-		<?php
-			if (isset($error)){
-				echo '<div class="alert alert-warning">'.translate($error).'</div>';
-			}
-		?>
-		<form action="" method="post" class="form-horizontal single">
-			<?=csrf_field() ?>
-			<fieldset>
-				<div class="form-group">
-					<label class="control-label"><?=translate('E-mail') ?></label>
-					<input name="email" type="email" value="<?=isset(request()->email) ? request()->email : '' ?>" class="form-control"  />
-				</div>
-				<div class="form-group">
-					<label class="control-label"><?=translate('Password') ?></label>
-					<input name="password" type="password" class="form-control"  />
-				</div>
-				<input name="login" type="submit" value="<?=translate('Login') ?>" class="btn btn-primary" />
-			</fieldset>
-		</form>
-		<div class="text-center"><a class="smooth" href="<?=url('reset-password')?>">Forgot your password ?</a></div>
+	<!-- // Page Head -->
+
+	<!-- Sign IN -->
+	<div class="row row-zCenter">
+		<div class="col-s-12 col-m-6">
+			<?php
+				if (isset($error)){
+					echo '<div class="alert alert-warning">'.translate($error).'</div>';
+				}
+				?>
+			<!-- Form -->
+			<form action="" method="post" class="form-ui">
+				<?=csrf_field() ?>
+				<!-- control input -->
+				<label>البريد الالكتروني</label>
+				<input placeholder="اسم المستخدم او البريد" name="email" type="text" value="<?=isset(request()->email) ? request()->email : '' ?>"  />
+				<label>كلمه المرور</label>
+				<input name="password" type="password" placeholder="كلمة مرور الحساب"/>
+				<label class="checkbox block-lvl">
+					<input type="checkbox" name="checkbox">
+					<span>حفظ بيانات الحساب</span>
+				</label>
+				<input name="login" type="submit" class="btn primary pro" value="تسجيل الدخول">
+			</form>
+			<!-- // Form -->
+		</div>
+		<div class="col-s-12 col-m-6">
+			<div class="signup-banner">
+				<h3>الا تملك حساب على متجرنا يمكنك تسجيل حساب جديد الان</h3>
+				<a href="E" class="btn primary pro">انشاء حساب جديد</a>
+			</div>
+		</div>
 	</div>
-	<div class="clearfix"></div>
+	<!-- // Sign IN -->
+</div>
+<!-- // Page Content -->
 <?php echo $footer?>

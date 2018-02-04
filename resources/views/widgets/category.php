@@ -14,7 +14,7 @@ $products = \App\Product::where('category', $data['category']->id)->get();
             <a href="product/<?=path($product->title,$product->id)?>" class="image" data-src="<?=url('/assets/products/'.image_order($product->images))?>"></a>
             <span class="discount-badge">خصم 25%</span>
             <div class="hvr">
-                <a href="#" class="btn primary" data-modal="item-added">اضافه الى السله</a>
+                <a href="#" class="btn primary add-cart-fast" data-id="<?=$product->id?>" data-modal="item-added">اضافه الى السله</a>
                 <a href="#" class="btn secondary" data-modal="item-added">اضف الى الامنيات</a>
             </div>
             <a href="product/<?=path($product->title,$product->id)?>"><h3><?=$product->title?></h3></a>

@@ -51,7 +51,7 @@
 		<!-- Header -->
         <header class="main-header">
             <div class="container">
-                <a href="/" class="logo"><img src="<?=$tp ?>/assets/img/logo.png" alt=""></a>
+                <a href="<?=url('') ?>" class="logo"><img src="<?=$tp ?>/assets/img/logo.png" alt=""></a>
                 
                 <form class="search-box">
                     <input id="search-input" type="text" placeholder="كلمات البحث">

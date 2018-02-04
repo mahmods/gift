@@ -1,15 +1,3 @@
-		</div>
-	</div>
-	<div id="footer">
-		<div class="container">
-			<ul class="links">
-				<?php foreach ($links as $link) {?>
-					<li><a href="<?=$link->link ?>" class="smooth"><?=translate($link->title) ?></a></li>
-				<?php } ?>
-			</ul>
-		</div>
-	</div>
-
 	<!-- Footer -->
 	<div class="footer-features">
 		<div class="container">

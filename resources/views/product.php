@@ -1,29 +1,224 @@
 <?php echo $header?>
+<!-- Page Content -->
+<div class="container page-content">
+	<!-- Page Head -->
+	<div class="page-head">
+		<h1>اقسام المناسبات</h1>
+		<div class="breadcrumb">
+			<a href="#">الرئيسيه</a>
+			<a href="<?=url('/products/'.$cat->path)?>"><?=$cat->name?></a>
+			<a href="#">قسم باقات الهدايا</a>
+		</div>
+	</div>
+	<!-- // Page Head -->
+	<!-- Product Details -->
+	<div class="row">
+		<div class="col-s-12 col-m-6">
+			<div class="photo-slider">
+				<?php foreach($images as $image) :?>
+					<div class="item"><a href="<?=url('/assets/products/'.$image)?>" class="zooming"><img src="<?=url('/assets/products/'.$image)?>" alt=""></a></div>
+				<?php endforeach;?>
+			</div>
+			<div class="photo-thumbnails">
+			<?php foreach($images as $image) :?>
+				<div class="item"><img src="<?=url('/assets/products/'.$image)?>" alt=""></div>
+			<?php endforeach;?>
+			</div>
+		</div>
+		<div class="col-s-12 col-m-6">
+			<div class="product-info">
+				<h2><?=$product->title?></h2>
+				<h4 class="price"><?=currency($product->price)?>   <span>320RS</span></h4>
+				<p><?=$product->text?></p>
+				<div class="options row form-ui">
+					<div class="col-s-12 col-m-4">
+						<label>العدد</label>
+						<input class="quantity" type="number" value="1" min="1" max="10">
+					</div>
+					<div class="col-s-12 col-m-4">
+						<label>اللون</label>
+						<select>
+							<option value="1" style="background:red">Red</option>
+							<option value="2" style="background:yellow">Yellow</option>
+							<option value="3" style="background:purple">Purple</option>
+						</select>
+					</div>
+					<div class="col-s-12 col-m-4">
+						<label>أضافي</label>
+						<select>
+							<option>كعكه مع البيض</option>
+							<option>اختيار اضافي جديد</option>
+							<option>اختيار اضافي على الطلب</option>
+						</select>
+					</div>
+					<div class="col-s-12">
+						<label>تاريخ الاستلام</label>
+						<input type="text" class="datepicker" name="date" placeholder="اختيار التاريخ">
+					</div>
+				</div>
+				<a href="#" data-id="<?=$product->id?>" class="btn primary add-cart" data-modal="item-added">اضافه الى السله</a>
+				<a href="javascript:void(0);" class="btn secondary" data-modal="item-added">اضف الى الامنيات</a>
+			</div>
+		</div>
+	</div>
+	<!-- // Product Details -->
+		<!-- Product Features -->
+		<div class="product-features">
+			<div class="row cols-gutter-20">
+				<!-- Feature Block -->
+				<div class="feature-block col-s-12 col-m-6 col-l-4">
+					<div class="table-style">
+						<i><img src="<?=$tp?>/assets/img/truck-fast.png" alt=""></i>
+						<h3 class="info">شحن مجاني <span>شحن مجاني للمنتجات اكثر من 500$</span></h3>
+					</div>
+				</div>
+				
+				<!-- Feature Block -->
+				<div class="feature-block col-s-12 col-m-6 col-l-4">
+					<div class="table-style">
+						<i><img src="<?=$tp?>/assets/img/money.png" alt=""></i>
+						<h3 class="info">ضمان رجوع المال <span>يمكنك استرجاع مالك لمدة 30 يوم من الشراء</span></h3>
+					</div>
+				</div>
+				
+				<!-- Feature Block -->
+				<div class="feature-block col-s-12 col-m-6 col-l-4">
+					<div class="table-style">
+						<i><img src="<?=$tp?>/assets/img/telemarketer.png" alt=""></i>
+						<h3 class="info">الدعم الاونلاين <span>ان واجهتك مشكله يمكنك استخدام الدعم المباشر</span></h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- // Product Features -->
+
+		<!-- Cart Added Modal -->
+		<div class="modal-box tornado-ui success" id="item-added">
+			<div class="modal-content pro">
+				<span class="close-modal ti-clear"></span>
+				<i class="ti-done-all"></i>
+				<h3>تم اضافه المنتج الى سله الشراء بنجاح</h3>
+				<p>هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى</p>
+			</div>
+		</div>
+		<!-- // Cart Added Modal -->
+		<!-- Extra Details -->
+		<div class="section-head">
+			<h2>معلومات المنتج</h2>
+		</div>
+		
+		<ul class="row extra-details">
+			<li class="col-s-12 col-m-6">العلامة التجارية       <span>بلاك فيو</span></li>
+		</ul>
+		
+		<!-- Reviews -->
+		<div class="section-head">
+			<h2>تقييمات المستخدمين</h2>
+			<a href="#" class="more-btn">تقييم المنتج</a>
+		</div>
+		
+		<?php foreach($reviews as $review) : ?>
+		<!-- Review Block -->
+		<div class="review-block">
+			<h3>بواسطة <?=$review->name?></h3>
+			<div class="stars">
+			<?php
+			$rr = $review->rating;
+			$i = 0;
+			while($i<5){
+				$i++;
+				echo '<span class="ti-star ' . (($i<=$review->rating) ? 'active' : '') . '"></span>';
+				$rr--;
+			}
+			?>
+				<span class="taged">تم شراؤه</span>
+			</div>
+			<p><?=nl2br($review->review)?></p>
+		</div>
+		<!-- // Review Block -->
+		<?php endforeach; ?>
+		
+		<!-- Similar Products -->
+		<div class="section-head">
+			<h2>منتجات مشابهه</h2>
+		</div>
+		
+		<div class="carousel-slider row">
+			<!-- Product Block -->
+			<div class="product-block col-s-12 col-m-6 col-l-4">
+				<div class="content-box">
+					<a href="#" class="image" data-src="img/product-13.png"></a>
+					<span class="discount-badge">خصم 25%</span>
+					<div class="hvr">
+						<a href="#" class="btn primary" data-modal="item-added">اضافه الى السله</a>
+						<a href="#" class="btn secondary" data-modal="item-added">اضف الى الامنيات</a>
+					</div>
+					<a href="#"><h3>مجموعه العشق الابدي</h3></a>
+					<h4 class="price">150egp <span>200egp</span></h4>
+				</div>
+			</div>
+			<!-- // Product Block -->
+			
+			<!-- Product Block -->
+			<div class="product-block col-s-12 col-m-6 col-l-4">
+				<div class="content-box">
+					<a href="#" class="image" data-src="img/product-14.png"></a>
+					<div class="hvr">
+						<a href="#" class="btn primary" data-modal="item-added">اضافه الى السله</a>
+						<a href="#" class="btn secondary" data-modal="item-added">اضف الى الامنيات</a>
+					</div>
+					<a href="#"><h3>مجموعه العشق الابدي</h3></a>
+					<h4 class="price">150egp <span>200egp</span></h4>
+				</div>
+			</div>
+			<!-- // Product Block -->
+			
+			<!-- Product Block -->
+			<div class="product-block col-s-12 col-m-6 col-l-4">
+				<div class="content-box">
+					<a href="#" class="image" data-src="img/product-15.png"></a>
+					<div class="hvr">
+						<a href="#" class="btn primary" data-modal="item-added">اضافه الى السله</a>
+						<a href="#" class="btn secondary" data-modal="item-added">اضف الى الامنيات</a>
+					</div>
+					<a href="#"><h3>مجموعه العشق الابدي</h3></a>
+					<h4 class="price">150egp <span>200egp</span></h4>
+				</div>
+			</div>
+			<!-- // Product Block -->
+			
+			<!-- Product Block -->
+			<div class="product-block col-s-12 col-m-6 col-l-4">
+				<div class="content-box">
+					<a href="#" class="image" data-src="img/product-16.png"></a>
+					<div class="hvr">
+						<a href="#" class="btn primary" data-modal="item-added">اضافه الى السله</a>
+						<a href="#" class="btn secondary" data-modal="item-added">اضف الى الامنيات</a>
+					</div>
+					<a href="#"><h3>مجموعه العشق الابدي</h3></a>
+					<h4 class="price">150egp <span>200egp</span></h4>
+				</div>
+			</div>
+			<!-- // Product Block -->
+			
+			<!-- Product Block -->
+			<div class="product-block col-s-12 col-m-6 col-l-4">
+				<div class="content-box">
+					<a href="#" class="image" data-src="img/product-14.png"></a>
+					<div class="hvr">
+						<a href="#" class="btn primary" data-modal="item-added">اضافه الى السله</a>
+						<a href="#" class="btn secondary" data-modal="item-added">اضف الى الامنيات</a>
+					</div>
+					<a href="#"><h3>مجموعه العشق الابدي</h3></a>
+					<h4 class="price">150egp <span>200egp</span></h4>
+				</div>
+			</div>
+			<!-- // Product Block -->
+		</div>
+</div>
 <div class="container">
 	<div class="content product-page">
 		<div class="col-md-6">
-			<div id="slider" class="flexslider">
-				<ul class="slides">
-					<?php foreach($images as $image){?>
-						<li class="zoom">
-							<img src="<?=url('/assets/products/'.$image)?>" />
-						</li>
-					<?php }?>
-				</ul>
-			</div>
-			<div id="carousel" class="flexslider">
-				<ul class="slides">
-					<?php foreach($images as $image){?>
-						<li>
-							<img src="<?=url('/assets/products/'.$image)?>" />
-						</li>
-					<?php }?>
-				</ul>
-			</div>
-		</div>
-		<div class="col-md-6">
-			<a href="<?=url('/products/'.$cat->path)?>" class="smooth"><?=translate($cat->name)?></a>
-			<h3><?=translate($product->title)?></h3>
 			<div class="rating">
 				<?php $tr = $rating; $i = 0; while($i<5){ $i++;?>
 					<i class="star<?=($i<=$rating) ? '-selected' : '';?>"></i>
@@ -31,7 +226,6 @@
 				<b> <?=$total_ratings.' '.translate('Reviews')?> </b>
 			</div>
 			<?=string_cut(translate($product->text),600,' ...')?>
-			<h5 class="price"><?=currency($product->price)?></h5>
 			<div class="order">
 				<?php if ($product->quantity > 0) { ?>
 				
@@ -102,50 +296,17 @@
 					<?php
 						}
 					?> 
-					<div class="quantity-select">
-						<div class="dec rease">-</div>
-						<input name="quantity" class="quantity" value="1" >
-						<div class="inc rease">+</div>
-					</div>
 					<button class="add-cart bg" data-id="<?=$product->id?>"><?=translate('Add to cart')?></button>
 				<?php } else { ?>
 					<p>Quantity unavailable</p>
 				<?php } ?>
 			</div>
-			<div class="share">
-				<b><?=translate('Share')?> </b>
-				<a href="https://www.facebook.com/sharer/sharer.php?u=<?=url()->current()?>"><i class="icon-social-facebook"></i></a> 
-				<a href="https://twitter.com/intent/tweet/?url=<?=url()->current()?>"><i class="icon-social-twitter"></i></a>
-			</div>
 		</div>
-		<div class="clearfix"></div>
 	</div>
 	<div class="content">
-		<div class="tabs">
-			<a href="#description" data-toggle="tab" class="active"><?=translate('Description')?></a>
-			<a href="#reviews" data-toggle="tab"><?=translate('Reviews')?> (<?=$total_ratings?>)</a>
-		</div>
 		<div class="tab-content">
-			<div class="tab-pane active" id="description"><?=nl2br(translate($product->text))?></div>
 			<div class="tab-pane" id="reviews">
-				<?php 
-					foreach($reviews as $review){
-						echo '<img class="review-image" src="http://www.gravatar.com/avatar/'.md5($review->email).'?s=45&d=mm">
-						<div class="review-meta"><b>'.$review->name.'</b><br/>
-						<span class="time">'.date('M d, Y',$review->time).'</span><br/></div>
-						<div class="review">
-						<div class="rating pull-right">';
-						$rr = $review->rating; $i = 0; while($i<5){ $i++;?>
-						<i class="star<?=($i<=$review->rating) ? '-selected' : '';?>"></i>
-						<?php $rr--; }
-						echo '</div>
-						<div class="clearfix"></div>
-						<p>'.nl2br($review->review).'</p></div>';
-					}
-					if(count($reviews) > 0){
-						echo '<hr/>';
-					}
-				?>
+
 				<form action="" method="post" id="review" class="form-horizontal single">
 					<div id="response"></div>
 					<h5><?=translate('Add a review')?> :</h5>
@@ -181,41 +342,16 @@
 		</div>
 	</div>
 </div>
-<link rel="stylesheet" href="<?=$tp;?>/assets/flexslider.css" type="text/css">
-<script src="<?=$tp;?>/assets/jquery.flexslider.js"></script>
-<script src="<?=$tp;?>/assets/jquery.zoom.js"></script>
 <style>
 	.zoomImg {
 	background: white;
 	}
 </style>
 <script>
-	
+/* 	
 	$('#star-rating').rating();
-	$('#carousel').flexslider({
-		animation: "slide",
-		controlNav: false,
-		animationLoop: false,
-		slideshow: false,
-		itemWidth: 210,
-		itemMargin: 5,
-		minItems: 4,
-		maxItems: 6,
-		asNavFor: '#slider'
-	});
-	
-	$('#slider').flexslider({
-		animation: "slide",
-		controlNav: false,
-		animationLoop: false,
-		slideshow: false,
-		sync: "#carousel",
-		touch: true,
-		keyboard: true,
-		smoothHeight: true, 
-	});
 	$(document).ready(function(){
-		$('.zoom').zoom({magnify: 3});
+
 		var maxQuantity = <?=$product->quantity?>;
 		$("body").off('click',".rease").on('click',".rease", function() {
 			
@@ -248,6 +384,6 @@
 			}
 			$button.parent().find("input").val(newVal);
 		});
-	});
+	}); */
 </script>
 <?php echo $footer?>

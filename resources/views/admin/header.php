@@ -15,6 +15,7 @@
 		<script src="<?=$tp?>/assets/jquery.min.js"></script>
 		<script src="<?=$tp?>/assets/bootstrap.min.js"></script>
 		<script src="<?=$tp?>/assets/Chart.min.js"></script>
+		<script src="<?=$tp?>/assets/nouislider.min.js"></script>
 	</head>
 	<body>
 			<aside class="sidebar-left">

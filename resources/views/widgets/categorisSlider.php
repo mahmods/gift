@@ -1,4 +1,4 @@
-<?php $categories = \App\Category::orderby('id','desc')->get(); ?>
+<?php $categories = \App\Category::where("parent", "0")->orderby('id','desc')->get(); ?>
 <!-- Categorys -->
 <div class="section-head">
     <h2>الفئات والتصنيفات</h2>

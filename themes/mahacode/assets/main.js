@@ -29,7 +29,7 @@ $(document).ready(function(){
 						<a href="#" class="image"><img src="assets/products/${elem.images}" alt=""></a>
 						<div class="info">
 							<a href="product-single.html"><h3>${elem.title}</h3></a>
-							<span class="quantity">x${elem.quantity}</span>
+							<span class="qty">x${elem.quantity}</span>
 							<a href="javascript:void(0);" data-id=${elem.id} class="remove-item remove-cart ti-close-a"></a>
 						</div>
 					</li>

@@ -112,7 +112,8 @@ class Frontend extends Controller
 		if(!empty($this->cfg->tumblr)){$social['tumblr'] = $this->cfg->tumblr;}
 		$links = $this->footer;
 		$tp = url("/themes/".$this->cfg->theme);
-		return view('footer')->with(compact('social','links', 'tp'))->render();
+		$cfg = $this->cfg;
+		return view('footer')->with(compact('social','links', 'tp', 'cfg'))->render();
 	}
 	public function language($language_code)
 	{
@@ -342,7 +343,8 @@ class Frontend extends Controller
 		$price['min'] = (count($products) > 0 ? \App\Product::whereRaw($where)->orderby('price','asc')->limit(1)->first()->price : 0);
 		$price['max'] = (count($products) > 0 ? \App\Product::whereRaw($where)->orderby('price','desc')->limit(1)->first()->price : 0);
 		$footer = $this->footer();
-		return view('products')->with(compact('header','category','price','cats','products','footer'));
+		$tp = url("/themes/".$this->cfg->theme);
+		return view('products')->with(compact('header', 'tp','category','price','cats','products','footer'));
 	}
 	public function product($product_id)
 	{

@@ -103,6 +103,10 @@
 			<label class="control-label">Address</label>
 			<textarea name="address" type="text" class="form-control" required><?=$cfg->address?></textarea>
 		</div>
+		<div class="form-group">
+			<label class="control-label">Footer About us</label>
+			<textarea name="footer_about" type="text" class="form-control" required><?=$cfg->footer_about?></textarea>
+		</div>
 		<input name="save" type="submit" value="Update" class="btn btn-primary" />
 	</fieldset>
 </form>

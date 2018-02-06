@@ -11,9 +11,11 @@
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 		<!-- Required CSS Files -->
 		<link href="<?=$tp ?>/assets/css/tornado-rtl.css" rel="stylesheet">
-        <link href="<?=$tp ?>/assets/css/animations.css" rel="stylesheet">
+		<link href="<?=$tp ?>/assets/css/animations.css" rel="stylesheet">
 		<link href="<?=$tp ?>/assets/theme-rtl.css" rel="stylesheet">
+		<link href="<?=$tp ?>/assets/nouislider.min.css" rel="stylesheet">
 		<script src="<?=$tp ?>/assets/plugins.js"></script>
+		<script src="<?=$tp ?>/assets/nouislider.min.js"></script>
 		<?php if ($stripe->active == 1) {?><script type="text/javascript" src="https://js.stripe.com/v2/" async></script><?php }?>
 		<script>
 			var sitename = '<?=translate($cfg->name) ?>';
@@ -92,32 +94,7 @@
                         
                         <div class="cart-dropdown">
                             <ul>
-                                <!-- Cart Item -->
-                                <li class="table-style">
-                                    <a href="#" class="image"><img src="img/cart.png" alt=""></a>
-                                    <div class="info">
-                                        <a href="product-single.html"><h3>سماعات الكترونيه حديثه على شكل روبوت</h3></a>
-                                        <span class="quantity">x2</span>
-                                        <a href="#" class="remove-item ti-close-a"></a>
-                                    </div>
-                                </li>
-                                <!-- Cart Item -->
-                                <li class="table-style">
-                                    <a href="#" class="image"><img src="img/cart.png" alt=""></a>
-                                    <div class="info">
-                                        <a href="product-single.html"><h3>سماعات الكترونيه حديثه على شكل روبوت</h3></a>
-                                        <span class="quantity">x2</span>
-                                        <a href="#" class="remove-item ti-close-a"></a>
-                                    </div>
-                                </li>
-                                <!-- Cart Item -->
-                                <li class="table-style">
-                                    <a href="#" class="image"><img src="img/cart.png" alt=""></a>
-                                    <div class="info">
-                                        <a href="product-single.html"><h3>سماعات الكترونيه حديثه على شكل روبوت</h3></a>
-                                        <a href="#" class="remove-item ti-close-a"></a>
-                                    </div>
-                                </li>
+
                             </ul>
                         </div>
                     </div>

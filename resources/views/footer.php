@@ -34,7 +34,7 @@
 			<div class="row row-stretch">
 				<div class="col-s-12 col-m-6 col-l-4">
 					<h3>نبذه عن هديتك</h3>
-					<p>هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات</p>
+					<p><?=$cfg->footer_about ?></p>
 					<div class="social">
 					<?php foreach($social as $platform => $account) {?>
 						<a href="<?=$account ?>" class="ti-<?=$platform ?>"></a>
@@ -48,7 +48,6 @@
 					<?php foreach ($links as $link) {?>
 						<li><a href="<?=$link->link ?>"><?=translate($link->title) ?></a></li>
 					<?php } ?>
-						<li><a href="#">قائمة الملاحظة</a></li>
 					</ul>
 				</div>
 				

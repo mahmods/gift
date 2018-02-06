@@ -11,12 +11,14 @@ use ZipArchive;
 class Admin extends Controller
 {
 	public $cfg;
-    public $style;
+	public $style;
+	public $categories;
 
     public function __construct()
     {
         $this->cfg = \App\Config::first();
-        $this->style = \App\Style::first();
+		$this->style = \App\Style::first();
+		$this->categories = \App\Category::where('parent',0)->orderby('id','asc')->get();
     }
 	public function header($title = 'Admin',$area = false)
 	{
@@ -152,7 +154,7 @@ class Admin extends Controller
 		}
 		return json_encode($json);
 	}
-	public function products($action = 'list',$action_id = 0)
+	public function products($action = 'list',$action_id = 0, $category = false)
 	{
 		if(isset(request()->add)){
 			$data['title'] = request()->title;
@@ -272,8 +274,29 @@ class Admin extends Controller
 		$header = $this->header('Products','products');
 		$products = \App\Product::get();
 		$categories = \App\Category::where(["parent" => 0])->get();
+		$price = array();
+		$where = array();
+		if ($category)
+		{
+			if (\App\Category::where('path',$category)->count() == 0){
+				abort(404);
+			}
+			$category = \App\Category::where('path',$category)->first();
+			$categories[] = $category->id;
+			if ($category->parent == 0){
+				$childs = \App\Category::where('parent',$category->id)->orderby('id','desc')->get();
+				foreach ($childs as $child){
+					$categories[] = $child->id;
+				}
+			}
+			$where['cat'] = "category IN (".implode(',',$categories).")";
+		}
+		$where = ($where) ?  implode(' AND ', $where) : '1';
+		$cats = $this->categories;
+		$price['min'] = (count($products) > 0 ? \App\Product::whereRaw($where)->orderby('price','asc')->limit(1)->first()->price : 0);
+		$price['max'] = (count($products) > 0 ? \App\Product::whereRaw($where)->orderby('price','desc')->limit(1)->first()->price : 0);
 		$footer = $this->footer();
-		return view('admin/products')->with(compact('header','action','products','product','categories','footer'));
+		return view('admin/products')->with(compact('header','action','products','product','categories', 'cats', 'price', 'footer'));
 	}
 	public function categories($action = 'list',$action_id = 0){
 		if(isset(request()->add)){

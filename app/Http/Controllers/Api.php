@@ -90,6 +90,10 @@ class Api extends Controller
 		$where = ($where) ?  implode(' AND ', $where) : '1';
 		$products = \App\Product::whereRaw($where)->orderby('id','desc')->get();
 		$response = array();
+		$price = array();
+		$price['min'] = (count($products) > 0 ? \App\Product::whereRaw($where)->orderby('price','asc')->limit(1)->first()->price : 0);
+		$price['max'] = (count($products) > 0 ? \App\Product::whereRaw($where)->orderby('price','desc')->limit(1)->first()->price : 0);
+		$response['price'] = $price;
 		$response['products'] = array();
 		// fetch products and return them in json format
 		foreach ($products as $row){

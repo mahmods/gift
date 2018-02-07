@@ -389,6 +389,7 @@ table td .price{color:#d9508a;}
 .main-header .search-box #search-results .search-item:after{contain: '';display: block;clear: both;}
 .main-header .search-box #search-results .search-item .search-image{float:left;width:90px;height: auto;margin-left: 15px;}
 .main-header .search-box #search-results .search-item b{font-size:14px;color:#d9508a;}
+#review{margin-top:30px;}
 
 
 

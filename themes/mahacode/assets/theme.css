@@ -383,7 +383,7 @@ table td .price{color:#d9508a;}
 /*===== Fix's ======*/
 .main-header .search-box{position: relative;}
 .main-header .search-box #search-results{position: absolute;top:100%;left:0;right:0;background:#FFF;border:1px solid rgba(0,0,0,.10);border-top:0 none;border-radius:5px;}
-.main-header .search-box #search-results .search-item{padding:25px;border-bottom: 1px solid rgba(0,0,0,.10);}
+.main-header .search-box #search-results .search-item{padding:25px;border-bottom: 1px solid rgba(0,0,0,.10);display:block;}
 .main-header .search-box #search-results .search-item{border-bottom: 0 none;}
 .main-header .search-box #search-results .search-item h6{font-size:15px;color:#646464;}
 .main-header .search-box #search-results .search-item:after{contain: '';display: block;clear: both;}

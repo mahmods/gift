@@ -216,12 +216,12 @@
 			<!-- // Product Block -->
 		</div>
 </div>
-<div class="container">
-	<div class="content product-page">
-		<div class="col-md-6">
+<div class="cart-totals container">
+	<div class="content-box row form-ui">
+		<div class="col-m-6">
 			<div class="rating">
 				<?php $tr = $rating; $i = 0; while($i<5){ $i++;?>
-					<i class="star<?=($i<=$rating) ? '-selected' : '';?>"></i>
+					<i class="ti-star<?=($i<=$rating) ? ' active' : '';?>"></i>
 				<?php $tr--; }?>
 				<b> <?=$total_ratings.' '.translate('Reviews')?> </b>
 			</div>
@@ -312,15 +312,15 @@
 					<h5><?=translate('Add a review')?> :</h5>
 					<fieldset>
 						<div class="row">
-							<div class="form-group col-md-4">
+							<div class="form-group col-m-4">
 								<label class="control-label"><?=translate('Name')?></label>
 								<input name="name" value="" class="form-control" type="text">
 							</div>
-							<div class="form-group col-md-4">
+							<div class="form-group col-m-4">
 								<label class="control-label"><?=translate('E-mail')?></label>
 								<input name="email" value="" class="form-control" type="text">
 							</div>
-							<div class="form-group col-md-4">
+							<div class="form-group col-m-4">
 								<label class="control-label"><?=translate('Rating')?></label>
 								<div id="star-rating">
 									<input type="radio" name="rating" class="rating" value="1" />

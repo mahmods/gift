@@ -297,43 +297,42 @@
 						<?php
 							}
 						?> 
-						<button class="add-cart bg" data-id="<?=$product->id?>"><?=translate('Add to cart')?></button>
+						<button class="btn primary add-cart" data-id="<?=$product->id?>"><?=translate('Add to cart')?></button>
 					<?php } else { ?>
 						<p>Quantity unavailable</p>
 					<?php } ?>
 				</div>
 				<!-- // Order -->
-		</div>
-
-		<form action="" method="post" id="review" class="form-ui">
-			<div id="response"></div>
-			<h5 class="title"><?=translate('Add a review')?> :</h5>
-			<div class="row">
-				<div class="col-s-12 col-m-4">
-					<label><?=translate('Name')?></label>
-					<input name="name" value="" type="text">
-				</div>
-				<div class="col-s-12 col-m-4">
-					<label><?=translate('E-mail')?></label>
-					<input name="email" value="" type="text">
-				</div>
-				<div class="col-s-12 col-m-4">
-					<label><?=translate('Rating')?></label>
-					<div id="star-rating">
-						<input type="radio" name="rating" class="rating" value="1" />
-						<input type="radio" name="rating" class="rating" value="2" />
-						<input type="radio" name="rating" class="rating" value="3" />
-						<input type="radio" name="rating" class="rating" value="4" />
-						<input type="radio" name="rating" class="rating" value="5" />
+			<form action="" method="post" id="review" class="form-ui">
+				<div id="response"></div>
+				<h5 class="title"><?=translate('Add a review')?> :</h5>
+				<div class="row">
+					<div class="col-s-12 col-m-4">
+						<label><?=translate('Name')?></label>
+						<input name="name" value="" type="text">
+					</div>
+					<div class="col-s-12 col-m-4">
+						<label><?=translate('E-mail')?></label>
+						<input name="email" value="" type="text">
+					</div>
+					<div class="col-s-12 col-m-4">
+						<label><?=translate('Rating')?></label>
+						<div id="star-rating">
+							<input type="radio" name="rating" class="rating" value="1" />
+							<input type="radio" name="rating" class="rating" value="2" />
+							<input type="radio" name="rating" class="rating" value="3" />
+							<input type="radio" name="rating" class="rating" value="4" />
+							<input type="radio" name="rating" class="rating" value="5" />
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label><?=translate('Review')?></label>
-				<textarea name="review" type="text" rows="5"></textarea>
-			</div>
-			<button data-product="<?=$product->id?>" name="submit" id="submit-review" class="btn primary add-cart" ><?=translate('submit')?></button>
-		</form>
+				<div class="form-group">
+					<label><?=translate('Review')?></label>
+					<textarea name="review" type="text" rows="5"></textarea>
+				</div>
+				<button data-product="<?=$product->id?>" name="submit" id="submit-review" class="btn primary add-cart" ><?=translate('submit')?></button>
+			</form>
+		</div>
 	</div>
 	<!-- // Review Form -->
 </div>

@@ -38,7 +38,7 @@
 		<div class="col-s-12 col-m-6">
 			<div class="signup-banner">
 				<h3>الا تملك حساب على متجرنا يمكنك تسجيل حساب جديد الان</h3>
-				<a href="E" class="btn primary pro">انشاء حساب جديد</a>
+				<a href="./register" class="btn primary pro">انشاء حساب جديد</a>
 			</div>
 		</div>
 	</div>

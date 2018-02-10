@@ -1,5 +1,5 @@
 <?php
-	$response[] = '<button data-toggle="collapse" data-target="#bank-payment" class="payment">
+	$response[] = '<button data-toggle="collapse" data-target="#bank-payment" class="payment btn primary">
 			<img src="'.url('/assets/bank.svg').'">
 			<h5>'.translate("Bank transfer").'</h5>
 		</button>

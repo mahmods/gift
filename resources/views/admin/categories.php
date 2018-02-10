@@ -5,10 +5,15 @@
 				'.csrf_field().'
 				<h5><a href="categories"><i class="icon-arrow-left"></i></a>Add new category</h5>
 					<fieldset>
-						  <div class="form-group">
-							<label class="control-label">Category name</label>
-							<input name="name" type="text"  class="form-control" />
-						  </div>
+					<div class="form-group">
+					<label class="control-label">Category name</label>';
+							foreach($languages as $l) {
+								echo '<div class="inputWithIcon">';
+								echo '<input placeholder="'.$l->code.'" name="name_' . $l->code . '" type="text" class="form-control" />';
+								echo '<i class="flag-icon flag-icon-'.flag($l->code).'"></i>';
+								echo '</div>';
+							}
+							echo '</div>
 						  <div class="form-group">
 							<label class="control-label">Category path</label>
 							<input name="path" type="text" class="form-control"  />
@@ -24,7 +29,7 @@
 							</div>
 							<div class="form-group">
 							<label class="control-label">Category images</label>
-							<input type="file" class="form-control" name="images[]" multiple="multiple" accept="image/*"  required/>
+							<input type="file" class="form-control" name="images[]" multiple="multiple" accept="image/*"/>
 						  </div>
 						  <input name="add" type="submit" value="Add category" class="btn btn-primary" />
 					</fieldset>
@@ -35,9 +40,11 @@
 				<h5><a href="categories"><i class="icon-arrow-left"></i></a>Edit category</h5>
 					<fieldset>
 						  <div class="form-group">
-							<label class="control-label">Category name</label>
-							<input name="name" type="text"  value="'.$category->name.'" class="form-control" />
-						  </div>
+							<label class="control-label">Category name</label>';
+							foreach($languages as $l) {
+								echo '<input name="name_' . $l->code . '" type="text"  value="'.$category->translate($l->code)->name.'" class="form-control" />';
+							}
+						  echo '</div>
 						  <div class="form-group">
 							<label class="control-label">Category path</label>
 							<input name="path" type="text" value="'.$category->path.'" class="form-control"  />
@@ -85,6 +92,40 @@
 				</h5>
 			</div>';
 		}
-	}
-	echo $footer;
-?>
+	}?>
+<style>
+
+  .inputWithIcon input[type=text]{
+    padding-left:40px;
+  }
+  
+  .inputWithIcon{
+    position:relative;
+  }
+  
+  .inputWithIcon i{
+    position:absolute;
+    left:5px;
+    top:8px;
+    padding:5px 10px;
+    color:#aaa;
+    transition:.3s;
+  }
+  
+  .inputWithIcon input[type=text]:focus + i{
+    color:dodgerBlue;
+  }
+  
+  .inputWithIcon.inputIconBg i{
+    background-color:#aaa;
+    color:#fff;
+    padding:9px 4px;
+    border-radius:4px 0 0 4px;
+  }
+  
+  .inputWithIcon.inputIconBg input[type=text]:focus + i{
+    color:#fff;
+    background-color:dodgerBlue;
+  }
+</style>
+	<?php echo $footer; ?>

@@ -10,9 +10,14 @@
 		<base href="<?=url('') ?>/" />
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 		<!-- Required CSS Files -->
-		<link href="<?=$tp ?>/assets/css/tornado-rtl.css" rel="stylesheet">
 		<link href="<?=$tp ?>/assets/css/animations.css" rel="stylesheet">
+		<?php if ($lang == "ar") : ?>
+		<link href="<?=$tp ?>/assets/css/tornado-rtl.css" rel="stylesheet">
 		<link href="<?=$tp ?>/assets/theme-rtl.css" rel="stylesheet">
+		<?php else : ?>
+		<link href="<?=$tp ?>/assets/css/tornado.css" rel="stylesheet">
+		<link href="<?=$tp ?>/assets/theme.css" rel="stylesheet">
+		<?php endif; ?>
 		<link href="<?=$tp ?>/assets/nouislider.min.css" rel="stylesheet">
 		<script src="<?=$tp ?>/assets/plugins.js"></script>
 		<script src="<?=$tp ?>/assets/nouislider.min.js"></script>
@@ -38,7 +43,7 @@
 							<button class="btn dropdown-btn ti-arrow-drop-down"><?=translate('Language') ?></button>
 							<ul class="dropdown">
 								<?php foreach ($languages as $lang){?>
-									<li><a href="<?=url('/language/'.$lang->code)?>"><?=translate($lang->name) ?></a></li>
+									<li><a href="<?=url('/language/'.$lang->code.'?redirect='.Request::url())?>"><?=translate($lang->name) ?></a></li>
 								<?php }?>
 							</ul>
 						</div>
@@ -104,15 +109,9 @@
                     <div class="cart-area toggle-cart">
                         <a href="#" class="cart-btn">
                             <i class="basket-icon"></i>
-                            <h3>سله التسوق <span class="cart-counter"></span></h3>
+                            <h3><?=translate("Cart")?> <span class="cart-counter"></span></h3>
                         </a>
-                        <div id="cart-content" class="cart-dropdown">
-                            <ul></ul>
-                            <h5>الاجمالي : <span>15864$</span></h5>
-                            <h5><a href="#">مشاهدة كل المنتجات</a></h5>
-                            <a href="cart.html" class="btn-sks">عربه التسوق</a>
-                            <a href="ja" class="btn-sks cart-checkout">انهاء الطلب</a>
-                        </div>
+                        <div id="cart-content" class="cart-dropdown"></div>
                     </div>
                     <!-- // Cart -->
                 </div>

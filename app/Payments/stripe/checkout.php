@@ -1,7 +1,7 @@
 <?php
 	$in = '';
 	if (!empty($error)){$in = 'in';}
-		$response[] = '<button data-toggle="collapse" data-target="#stripe-payment" class="payment" id="cc">
+		$response[] = '<button data-toggle="collapse" data-target="#stripe-payment" class="payment btn primary" id="cc">
 			<img src="'.url('/assets/stripe.svg').'">
 			<h5>'.translate("Credit Card").'</h5>
 		</button>

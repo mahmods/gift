@@ -12,11 +12,6 @@ jQuery(document).ready(function ($) {
         $(this).parent(".info").parent("li").remove();
     });
     
-    $(".cart-table table tbody td .remove-item").on("click", function (e) {
-        e.preventDefault();
-        $(this).parent("td").parent("tr").remove();
-    });
-    
     $(".main-slider").slick({
         rtl:true,
         autoplay:true,
@@ -92,9 +87,9 @@ jQuery(document).ready(function ($) {
     })
     
     // Stpes System
-    $(".steps-system .step-content:first-of-type").addClass("active")
+    //$(".steps-system .step-content:first-of-type").addClass("active")
     
-    $("body").on("click",".steps-system .step-content .prev-step",function(){
+    /* $("body").on("click",".steps-system .step-content .prev-step",function(){
         var contentId = $(this).attr("href");
         $(contentId).addClass("active");
         $(contentId).siblings(".step-content").removeClass("active");
@@ -104,7 +99,7 @@ jQuery(document).ready(function ($) {
         var contentId = $(this).attr("href");
         $(contentId).addClass("active");
         $(contentId).siblings(".step-content").removeClass("active");
-    });
+    }); */
     
     $("body").on("keyup","#card-name",function(){
         var nameValue = $(this).val();

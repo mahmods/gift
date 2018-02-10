@@ -271,7 +271,7 @@ button{cursor:pointer;}
 .billing label{font-size:15px;font-weight:500;font-family:NeoSans;text-transform:uppercase;display:block;margin-top:45px;margin-bottom:15px;}
 .form-ui label.required:after{content:'*';color:#d33c3c;padding:0 5px;}
 .form-ui input, .form-ui textarea, .form-ui select, .form-ui keygen, .form-ui .tagsinput{font-family:NeoSans;-webkit-border-radius:5px;border-radius:5px;font-size:14px;padding:15px 20px;-webkit-background-size:16px 16px;background-size:16px 16px;color:#787878;}
-table{min-width:980px;margin-bottom:30px;border-collapse:collapse;border:1px solid rgba(0,0,0,.15);font-family:NeoSans;font-weight:500;}
+table{/*min-width:980px;*/margin-bottom:30px;border-collapse:collapse;border:1px solid rgba(0,0,0,.15);font-family:NeoSans;font-weight:500;}
 table th,table td{font-weight:500;border-bottom:1px solid rgba(0,0,0,.10);padding:20px;font-size:14px;line-height:1.5;}
 table input{width:75px;border:1px solid rgba(0,0,0,.10);padding:12px 15px;font-size:14px;margin:0 5px;}
 table h3{font-size:15px;color:#2b2b2b;margin:0;padding: 0;line-height:26px;margin-bottom:10px;}

@@ -73,7 +73,7 @@ class Api extends Controller
 		}
 		if (!empty(request()->search))
 		{
-			$where['search'] = "(title LIKE '%".escape(request()->search)."%' OR text LIKE '%".escape(request()->search)."%')";
+			//$where['search'] = "(title LIKE '%".escape(request()->search)."%' OR text LIKE '%".escape(request()->search)."%')";
 		}
 		if (!empty(request()->cat))
 		{
@@ -88,7 +88,13 @@ class Api extends Controller
 			$where['cat'] = "category IN (".implode(',',$categories).")";
 		}
 		$where = ($where) ?  implode(' AND ', $where) : '1';
-		$products = \App\Product::whereRaw($where)->orderby('id','desc')->get();
+		$products = \App\Product::whereRaw($where);
+		if (!empty(request()->search))
+		{
+			$products = $products->whereTranslationLike('title', '%'.escape(request()->search).'%');
+			//$where['search'] = "(title LIKE '%".escape(request()->search)."%' OR text LIKE '%".escape(request()->search)."%')";
+		}
+		$products = $products->orderby('id','desc')->get();
 		$response = array();
 		$price = array();
 		$price['min'] = (count($products) > 0 ? \App\Product::whereRaw($where)->orderby('price','asc')->limit(1)->first()->price : 0);

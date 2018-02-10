@@ -35,11 +35,17 @@ $(document).ready(function(){
 					</li>
 					`
 				});
-				//cart += data.coupon;
-				//cart += '<div class="btn-clear"></div><button class="cart-btn cart-checkout bg">'+checkout+'</button>';
+				cart += `
+				<h5><?=translate("Total")?> : <span>15864$</span></h5>
+				<h5><a href="#">مشاهدة كل المنتجات</a></h5>
+				<a href="./cart" class="btn-sks">عربه التسوق</a>
+				<a href="./checkout" class="btn-sks cart-checkout">انهاء الطلب</a>
+				`;
+				$("#cart-content").empty();
+				$("#cart-content").append("<ul></ul>");
 				$("#cart-content ul").html(cart);
 			} else {
-				$("#cart-content ul").html('<div class="empty-cart"><i class="icon-basket"></i><h5>'+empty_cart+'</h5></div>');
+				$("#cart-content").html('<div class="empty-cart"><i class="icon-basket"></i><h5>'+empty_cart+'</h5></div>');
 				$( ".cart-counter ul" ).remove();
 			}
 		});
@@ -78,7 +84,7 @@ $(document).ready(function(){
 			});
     });
 	// Cart checkout
-	$("body").on('click','.cart-checkout',function() {
+/* 	$("body").on('click','.cart-checkout',function() {
 		$("#cart-content").html('<div class="loading"></div>');
 		$.ajax({ 
 				url: 'api/checkout',
@@ -98,7 +104,7 @@ $(document).ready(function(){
 			}).fail(function() {
 				console.log('Failed');
 			});
-	});
+	}); */
 	// Cart payment
 	$("body").on('click','.cart-payment',function() {
 		$(".cart-payment").html('<div class="loading"></div>');
@@ -294,4 +300,19 @@ $(document).ready(function(){
 	  var re = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	  return re.test(email);
 	}
+	$("body").on('click','.remove-product',function() {
+		var self = this;
+		var id = $(this).data('id');
+		$.ajax({ 
+			url: 'api/remove?id='+id+'',
+			type: 'get',
+			crossDomain: true,
+		}).done(function(responseData) {
+			//$(this).parent().parent().remove();
+			$(self).parent("td").parent("tr").remove();
+			cart();
+		}).fail(function() {
+			console.log('Failed');
+		});
+	});
 });

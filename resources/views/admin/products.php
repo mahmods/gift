@@ -5,11 +5,29 @@
 		echo notices().'<form action="" method="post" enctype="multipart/form-data" class="form-horizontal single">
 				'.csrf_field().'
 				<h5><a href="products"><i class="icon-arrow-left"></i></a>Add new product</h5>
-					<fieldset>
-						  <div class="form-group">
-							<label class="control-label">Product name</label>
-							<input name="title" type="text"  class="form-control" required/>
-						  </div>
+				<fieldset>
+					<ul class="nav nav-pills mb-3" id="myTab" role="tablist">';
+					foreach($languages as $i => $l) {
+						echo '<li class="nav-item '.($i == 0 ? 'active':'').'">
+								<a class="nav-link" id="'.$l->code.'-tab" data-toggle="tab" href="#'.$l->code.'" role="tab" aria-controls="'.$l->code.'" aria-selected="true">'.
+								'<i style="margin-right:5px;" class="flag-icon flag-icon-'.flag($l->code).'"></i>'.$l->name.'</a>
+							</li>';
+					}
+					echo '</ul>
+						<div class="tab-content" id="myTabContent">';
+						foreach($languages as $i => $l) {
+							echo '<div class="tab-pane fade '.($i == 0 ? 'active in':'').'" id="'.$l->code.'" role="tabpanel" aria-labelledby="'.$l->code.'-tab">';
+							echo '<div class="form-group">
+										<label class="control-label">Product name ('.$l->name.')</label>
+										<input name="title_'.$l->code.'" type="text"  class="form-control" required/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Product description ('.$l->name.')</label>
+										<textarea name="text_'.$l->code.'" type="text" class="form-control" required></textarea>
+									</div>';
+							echo '</div>';
+						}
+							echo '</div>
 						  <div class="form-group">
 							<label class="control-label">Product category</label>
 							<select name="category" class="form-control">';
@@ -21,10 +39,6 @@
 								}
 							}
 							echo '</select>
-						  </div>
-						  <div class="form-group">
-							<label class="control-label">Product description</label>
-							<textarea name="text" type="text" class="form-control" required></textarea>
 						  </div>
 						  <div class="form-group">
 							<label class="control-label">Product price</label>
@@ -56,6 +70,28 @@
 			'.csrf_field().'
 				<h5><a href="products"><i class="icon-arrow-left"></i></a>Update product</h5>
 					<fieldset>
+					<ul class="nav nav-pills mb-3" id="myTab" role="tablist">';
+					foreach($languages as $i => $l) {
+						echo '<li class="nav-item '.($i == 0 ? 'active':'').'">
+								<a class="nav-link" id="'.$l->code.'-tab" data-toggle="tab" href="#'.$l->code.'" role="tab" aria-controls="'.$l->code.'" aria-selected="true">'.
+								'<i style="margin-right:5px;" class="flag-icon flag-icon-'.flag($l->code).'"></i>'.$l->name.'</a>
+							</li>';
+					}
+					echo '</ul>
+						<div class="tab-content" id="myTabContent">';
+						foreach($languages as $i => $l) {
+							echo '<div class="tab-pane fade '.($i == 0 ? 'active in':'').'" id="'.$l->code.'" role="tabpanel" aria-labelledby="'.$l->code.'-tab">';
+							echo '<div class="form-group">
+										<label class="control-label">Product name ('.$l->name.')</label>
+										<input name="title_'.$l->code.'" type="text"  class="form-control" value="'.$product->translate($l->code)->title.'" required/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Product description ('.$l->name.')</label>
+										<textarea name="text_'.$l->code.'" type="text" class="form-control" required>'.$product->translate($l->code)->text.'</textarea>
+									</div>';
+							echo '</div>';
+						}
+							echo '</div>
 						  <div class="form-group">
 							<label class="control-label">Product name</label>
 							<input name="title" type="text" value="'.$product->title.'" class="form-control"  required/>
@@ -202,12 +238,13 @@
 			</div>
 			<div class="col-md-3">
 				<div class="form-group text-center">
-					<button type="submit" class="btn btn-primary"><?=translate('Search')?></button>
+					<button type="submit" class="btn btn-primary">Search</button>
 				</div>
 			</div>
 			<div class="clearfix"></div>
 		</form>
 	</div>
+	<div id="listing">
 <?php
 	echo notices();
 	foreach ($products as $product){
@@ -226,6 +263,7 @@
 	</div>';}
 	}
 ?>	
+</div>
 <style>
 	.button {
 		background: gainsboro;
@@ -333,6 +371,43 @@
 			$("#max").val(values[1]);
 			$(".pull-right.price").html(values[1]);
 		});
+			// Products listing
+	function listing(){
+		$("#listing").html('<div class="loading"></div>');
+		$.ajax({ 
+				url: '<?=url('')?>/api/products',
+				type: 'get',
+				data: $("#search").serialize(),
+				crossDomain: true,
+			}).done(function(response) {
+				data = JSON.parse(response);
+				var listing = '';
+				$.each(data.products, function(index,elem){
+					listing += `
+					<div id="${elem.id}" class=" col-md-3">
+						<div class="product">
+							<div class="pi">
+								<img src="${elem.images}">
+							</div>
+							<h5>${elem.title}</h5>
+							<b>${elem.price}</b>
+							<div class="tools">
+								<a href="products/delete/${elem.id}"><i class="icon-trash"></i></a>
+								<a href="products/edit/${elem.id}"><i class="icon-pencil"></i></a>
+							</div>
+						</div>
+					</div>`;
+				});
+				$("#listing").html(listing);
+			}).fail(function() {
+				console.log('Failed');
+			});
+	}
+	// Search products
+	$("body").on('submit','#search',function(e) {
+		e.preventDefault();
+		listing();
+	});
 </script>
 <?php
 	echo $footer;

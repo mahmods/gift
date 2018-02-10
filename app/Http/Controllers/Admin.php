@@ -13,12 +13,14 @@ class Admin extends Controller
 	public $cfg;
 	public $style;
 	public $categories;
+	public $languages;
 
     public function __construct()
     {
         $this->cfg = \App\Config::first();
 		$this->style = \App\Style::first();
 		$this->categories = \App\Category::where('parent',0)->orderby('id','asc')->get();
+		$this->languages = \App\Language::orderby('id','asc')->get();
     }
 	public function header($title = 'Admin',$area = false)
 	{
@@ -157,8 +159,8 @@ class Admin extends Controller
 	public function products($action = 'list',$action_id = 0, $category = false)
 	{
 		if(isset(request()->add)){
-			$data['title'] = request()->title;
-			$data['text'] = request()->text;
+			//$data['title'] = request()->title;
+			//$data['text'] = request()->text;
 			$data['price'] = request()->price;
 			$data['category'] = (int)request()->category;
 			$data['quantity'] = (int)request()->q;
@@ -184,6 +186,12 @@ class Admin extends Controller
 			}
             $data['options'] = json_encode($options);
 			$product = \App\Product::insertGetId($data);
+			$product = \App\Product::where(["id" => $product])->first();
+			foreach ($this->languages as $l) {
+				$product->translateOrNew($l->code)->title = request()->input("title_".$l->code);
+				$product->translateOrNew($l->code)->text = request()->input("text_".$l->code);
+			}
+			$product->save();
 			if (request()->file('images')) {
 				// Upload selected images to product assets directory
 				$order = 0;
@@ -191,7 +199,7 @@ class Admin extends Controller
 				foreach (request()->file('images') as $file) {
 					$name = $file->getClientOriginalName();
 					if (in_array($file->getClientOriginalExtension(), array("jpg", "png", "gif", "bmp"))){
-						$images[] = $image = $product.'-'.$order.'.'.$file->getClientOriginalExtension();
+						$images[] = $image = $product->id.'-'.$order.'.'.$file->getClientOriginalExtension();
 						$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'products';
 						$file->move($path,$image);
 						$order++;
@@ -199,7 +207,7 @@ class Admin extends Controller
 						notices("warning","$name is not a valid format");
 					}
 				}
-				\App\Product::where(["id" => $product])->update(["images" => implode(',',$images)]);
+				$product->update(["images" => implode(',',$images)]);
 			}
 			if (request()->file('download')) {
 				// Upload the downloadable file to product downloads directory
@@ -212,8 +220,8 @@ class Admin extends Controller
 			notices("success","Product has been added successfully !");
 		}
 		if(isset(request()->edit)){
-			$data['title'] = request()->title;
-			$data['text'] = request()->text;
+			//$data['title'] = request()->title;
+			//$data['text'] = request()->text;
 			$data['price'] = request()->price;
 			$data['category'] = (int)request()->category;
 			$data['quantity'] = (int)request()->q;
@@ -237,6 +245,12 @@ class Admin extends Controller
 			}
             $data['options'] = json_encode($options);
 			\App\Product::where(["id" => $action_id])->update($data);
+			$product = \App\Product::where(["id" => $action_id])->first();
+			foreach ($this->languages as $l) {
+				$product->translateOrNew($l->code)->title = request()->input("title_".$l->code);
+				$product->translateOrNew($l->code)->text = request()->input("text_".$l->code);
+			}
+			$product->save();
 				if (request()->file('images')) {
 					// Update product images
 					$order = 0;
@@ -296,15 +310,20 @@ class Admin extends Controller
 		$price['min'] = (count($products) > 0 ? \App\Product::whereRaw($where)->orderby('price','asc')->limit(1)->first()->price : 0);
 		$price['max'] = (count($products) > 0 ? \App\Product::whereRaw($where)->orderby('price','desc')->limit(1)->first()->price : 0);
 		$footer = $this->footer();
-		return view('admin/products')->with(compact('header','action','products','product','categories', 'cats', 'price', 'footer'));
+		$languages = $this->languages;
+		return view('admin/products')->with(compact('header','action','products','product','categories', 'cats', 'price', 'languages', 'footer'));
 	}
 	public function categories($action = 'list',$action_id = 0){
 		if(isset(request()->add)){
-			$data['name'] = request()->name;
+			//$data['name'] = request()->name;
 			$data['path'] = request()->path;
 			$data['parent'] = request()->parent;
 			$category = \App\Category::insertGetId($data);
-
+			$category = \App\Category::where(["id" => $category])->first();
+			foreach ($this->languages as $l) {
+				$category->translateOrNew($l->code)->name = request()->input("name_".$l->code);
+			}
+			$category->save();
 			$data['images'] = '';
 			if (request()->file('images')) {
 				// Upload selected images to Categories assets directory
@@ -313,7 +332,7 @@ class Admin extends Controller
 				foreach (request()->file('images') as $file) {
 					$name = $file->getClientOriginalName();
 					if (in_array($file->getClientOriginalExtension(), array("jpg", "png", "gif", "bmp"))){
-						$images[] = $image = $category.'-'.$order.'.'.$file->getClientOriginalExtension();
+						$images[] = $image = $category->id.'-'.$order.'.'.$file->getClientOriginalExtension();
 						$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'categories';
 						$file->move($path,$image);
 						$order++;
@@ -321,12 +340,14 @@ class Admin extends Controller
 						notices("warning","$name is not a valid format");
 					}
 				}
-				\App\Category::where(["id" => $category])->update(["images" => implode(',',$images)]);
+				$category->update(["images" => implode(',',$images)]);
 			}
 			notices("success","Category has been added successfully !");
 		}
 		if(isset(request()->edit)){
-			$data['name'] = request()->name;
+			$category = \App\Category::where(["id" => $action_id])->first();
+			//$data['name'] = request()->name;
+			//dd(request());
 			$data['path'] = request()->path;
 			$data['parent'] = request()->parent;
 			if (request()->file('images')) {
@@ -346,7 +367,11 @@ class Admin extends Controller
 				}
 				\App\Category::where(["id" => $action_id])->update(["images" => implode(',',$images)]);
 			}
-			\App\Category::where(["id" => $action_id])->update($data);
+			$category->update($data);
+			foreach ($this->languages as $l) {
+				$category->translateOrNew($l->code)->name = request()->input("name_".$l->code);
+			}
+			$category->save();
 			notices("success","Category has been edited successfully !");
 		}
 		if($action == "delete")
@@ -361,7 +386,8 @@ class Admin extends Controller
 		$categories = \App\Category::get();
 		$footer = $this->footer();
 		$parents = \App\Category::where(["parent" => 0])->get();
-		return view('admin/categories')->with(compact('header','action','categories','parents','category','footer'));
+		$languages = $this->languages;
+		return view('admin/categories')->with(compact('header','action','categories','parents','category','languages','footer'));
 	}
 	public function pages($action = 'list',$action_id = 0){
 		if(isset(request()->add)){

@@ -270,6 +270,8 @@ function translate($word){
 	{
 		// Desactivate translation
 		return $word;
+	} elseif (empty($word)) {
+		return $word;
 	}
 	else 
 	{
@@ -322,4 +324,25 @@ function notices($status = 'success',$message = false){
 		return $notices;
 	}
 	session()->push('notices', ['status' => $status,'message' => $message]);
+}
+
+/*
+* 	Flag code
+* 	$lang_code : Language Code Ex. "ar" or "en"
+*   return Country code to show the flag icon
+*/
+function flag($lang_code){
+	switch ($lang_code) {
+		case 'ar':
+			return "ae";
+			break;
+		case 'en':
+			return "us";
+			break;
+		
+		default:
+			# code...
+			break;
+	}
+	
 }

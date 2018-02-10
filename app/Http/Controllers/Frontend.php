@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App;
+use Cookie;
+use Session;
+use Validator;
 
 class Frontend extends Controller
 {
@@ -13,6 +17,7 @@ class Frontend extends Controller
 	public $footer;
 	public $languages;
 	public $categories;
+	public $cart;
 
 	public function __construct()
 	{
@@ -30,6 +35,10 @@ class Frontend extends Controller
 		$this->languages = \App\Language::orderby('id','asc')->get();
 		$this->categories = \App\Category::where('parent',0)->orderby('id','asc')->get();
 		$this->currencies = \App\Currency::orderby('default','asc')->get();
+		$this->cart = json_decode(stripslashes(Cookie::get('cart')), true);
+		$this->cart_options = json_decode(stripslashes(Cookie::get('cart_options')), true);
+		//$this->cart = request()->cookie('cart') != null ? json_decode(stripslashes(request()->cookie('cart')),true) : array();
+		App::setLocale(Cookie::get('lang'));
 	}
 	public function header($title = false,$desc = false,$page = false,$landing = false,$bg = false)
 	{
@@ -85,6 +94,7 @@ class Frontend extends Controller
 				\App\Tracking::where('code',$trackingcode)->increment('clicks');
 			}
 		}
+		$data['lang'] = App::getLocale();
 		$data['stripe'] = \App\Payment::where('code','stripe')->first();
 		$data['title'] = ($title) ? translate($title).' | '.translate($this->cfg->name) : translate($this->cfg->name);
 		$data['desc'] = ($desc) ? $desc : $this->cfg->desc;
@@ -115,16 +125,18 @@ class Frontend extends Controller
 		$cfg = $this->cfg;
 		return view('footer')->with(compact('social','links', 'tp', 'cfg'))->render();
 	}
-	public function language($language_code)
+	public function language(Request $request, $language_code)
 	{
+		//dd($request->redirect);
 		// Check if the language exists and redirect the user
 		if (\App\Language::where(['code' => escape($language_code)])->count() > 0)
 		{
 			setcookie('lang', $language_code,time()+31556926,'/');
+			App::setLocale($language_code);
 		} else {
 			return 'Language not found';
 		}
-		return redirect()->to('/');
+		return redirect()->to($request->redirect);
 	}
 	public function currency($currency_code)
 	{
@@ -156,21 +168,179 @@ class Frontend extends Controller
 	}
 	public function cart()
 	{
-		if ($this->cfg->floating_cart == 1) {
-			abort('404');
-		}
 		$header = $this->header(translate('Cart'),false,true);
 		$footer = $this->footer();
-		return view('cart')->with(compact('header','footer'));
+		$cart_items = $this->cart;
+		$count = count($cart_items);
+		$products = array();
+		if($count > 0){
+			// get the product ids
+			$ids = "";
+			foreach($cart_items as $id=>$name){
+				$ids = $ids . $id . ",";
+			}
+			// remove the last comma
+			$ids = rtrim($ids, ',');
+			// Get products from database
+			$cart_products = \App\Product::whereRaw("id IN ({$ids})")->orderby('id','desc')->get();
+			$total_price = 0;
+			$total_p = 0;
+			foreach ($cart_products as $i => $row){
+				$q = $this->cart[$row->id];
+				$options = json_decode($this->cart_options[$row->id],true);
+				$option_array = array();
+				foreach ($options as $option) {
+					$option_array[] = '<i>'.$option['title'].'</i> : '.$option['value'];
+				}
+				$data['id'] = $row->id;
+				$data['images'] = image_order($row->images);
+				$data['title'] = $row->title;
+				$data['price'] = currency($row->price);
+				$data['quantity'] = $q;
+				$data['options'] = implode('<br/>',$option_array);
+				$data['total'] = currency($row->price * $q);
+				// Add product to array :
+				array_push($products, $data);
+				$total_p+= $q;
+			}
+		}
+		return view('cart')->with(compact('header','footer', 'products'));
 	}
+
+	public function checkout(Request $request, $step = null)
+	{
+		$header = $this->header(translate('Cart'),false,true);
+		$footer = $this->footer();
+		if (!count($this->cart) > 0){
+			return redirect("cart");
+		}
+		if (empty($step)) {
+			return redirect("checkout/address");
+		}
+		$checkout_session = Session::get("checkout");
+		switch ($step) {
+			case 'address':
+				$step = 1;
+				if ($request->isMethod("post")) {
+					$rules = [
+						'first_name' => 'required',
+						'last_name' => 'required',
+						'address_details' => 'required',
+						'phone' => 'required',
+						'region' => 'required',
+						'city' => 'required',
+						];
+						$validator = Validator::make($request->all(), $rules)->validate();
+						foreach ($request->all() as $key => $value) {
+							$request->session()->put('checkout.'.$key, $value);
+						}
+						return redirect("checkout/summary");
+					}
+				return view('checkout')->with(compact('header','footer', 'step'));
+				break;
+			case 'summary':
+				$step = 2;
+				$products = array();
+				// get the product ids
+				$cart_items = $this->cart;
+				$ids = "";
+				foreach($cart_items as $id=>$name){
+					$ids = $ids . $id . ",";
+				}
+				// remove the last comma
+				$ids = rtrim($ids, ',');
+				// Get products from database
+				$cart_products = \App\Product::whereRaw("id IN ({$ids})")->orderby('id','desc')->get();
+				$total_price = 0;
+				$total_p = 0;
+				foreach ($cart_products as $i => $row){
+					$q = $this->cart[$row->id];
+					$options = json_decode($this->cart_options[$row->id],true);
+					$option_array = array();
+					foreach ($options as $option) {
+						$option_array[] = '<i>'.$option['title'].'</i> : '.$option['value'];
+					}
+					$data['id'] = $row->id;
+					$data['images'] = image_order($row->images);
+					$data['title'] = $row->title;
+					$data['price'] = currency($row->price);
+					$data['quantity'] = $q;
+					$data['options'] = implode('<br/>',$option_array);
+					$data['total'] = currency($row->price * $q);
+					// Add product to array :
+					array_push($products, $data);
+					$total_price += $row->price * $q;
+					$total_p+= $q;
+				}
+				$request->session()->put('checkout.products', json_encode($products,true));
+				$request->session()->put('checkout.total', $total_price);
+				$total_price = currency($total_price);
+				return view('checkout')->with(compact('header','footer', 'step', 'products', 'total_price'));
+				break;
+			case 'payment':
+				$step = 3;
+				$cart_items = $this->cart;
+				$ids = "";
+				foreach($cart_items as $id=>$name){
+					$ids = $ids . $id . ",";
+				}
+				// remove the last comma
+				$ids = rtrim($ids, ',');
+				// Get products from database
+				$cart_products = \App\Product::whereRaw("id IN ({$ids})")->orderby('id','desc')->get();
+				$total_price = 0;
+				$total_p = 0;
+				$total = 0;
+				$products = array();
+					foreach ($cart_products as $row){
+						$q = $this->cart[$row->id];
+						$product['id'] = $row->id;
+						$product['quantity'] = $q;
+						$product['options'] = $this->cart_options[$row->id];
+						array_push($products,$product);
+						$total += $row->price * $q;
+						//$email_products .= '<div>'.$row->title.' x '.$q.'<b style="float:right">'.currency($row->price * $q).'</b></div><hr>';
+						// Update product quantity
+						\App\Product::where('id',$product['id'])->decrement('quantity',$q);
+					}
+				// Save order in database
+				$data = array();
+				$data['products'] = json_encode($products,true);
+				$data['customer'] = (session('customer') == '' ? '0' : customer('id'));
+				$data['summ'] = $total;
+				$data['time'] = time();
+				$data['date'] = date('Y-m-d');
+				$data['stat'] = 1;
+				$data['payment'] = '{"payment_status":"unpaid"}';
+				$order = DB::table('orders')->insertGetId($data);
+				$methods = \App\Payment::where('active',1)->orderby('id','asc')->get();
+				$response = array();
+				//$response[] = '<div class="payment_total"><div>Sub total <b>'.currency($sub_total).'</b></div>'.$coupon_response.$shipping_response.'<div>Total <b>'.currency($total).'</b></div></div><div class="payments">';
+				$error = null;
+				$success = null;
+				foreach($methods as $method){
+					// Get method options and include it 
+					$options = json_decode(stripslashes($method->options), true);
+					include app_path()."/Payments/".$method->code."/checkout.php";
+				}
+				return view('checkout')->with(compact('header','footer', 'step', 'response'));
+				break;
+			default:
+				abort(404);
+				break;
+		}
+	}
+
 	public function register()
 	{
 		if ($this->cfg->registration == 0 || session('customer') != '') {
 			abort('404');
 		}
 		if(isset(request()->register)){
-			if (!empty(request()->name) && !empty(request()->email) && !empty(request()->password)){
-				$data['name'] = htmlspecialchars(request()->name);
+			if (!empty(request()->gender) && !empty(request()->first_name) && !empty(request()->last_name) && !empty(request()->email) && !empty(request()->password)){
+				$data['first_name'] = htmlspecialchars(request()->first_name);
+				$data['last_name'] = htmlspecialchars(request()->last_name);
+				$data['gender'] = request()->gender == "male" ? 0 : 1;
 				$data['email'] = htmlspecialchars(request()->email);
 				$data['password'] = md5(request()->password);
 				$data['sid'] = md5(microtime().uniqid());
@@ -266,8 +436,30 @@ class Frontend extends Controller
 	{
 		$header = $this->header(translate('Account'),false,true);
 		$orders = \App\Order::where('customer',customer('id'))->orderby('id','desc')->get();
+		$customer = \App\Customer::where('id', customer('id'))->first();
 		$footer = $this->footer();
-		return view('account')->with(compact('header','orders','footer'))->render(); 
+		return view('account')->with(compact('header','orders','footer', 'customer'))->render(); 
+	}
+	public function accountEdit(Request $request)
+	{
+		$customer = \App\Customer::where('id', customer('id'))->first();
+		if ($request->isMethod("post")) {
+			$rules = [
+				'first_name' => 'required',
+				'last_name' => 'required',
+				'gender' => 'required',
+			];
+
+			$validator = Validator::make($request->all(), $rules)->validate();
+			$customer->first_name = $request->first_name;
+			$customer->last_name = $request->last_name;
+			$customer->gender = $request->gender;
+			$customer->save();
+			return redirect("account");
+		}
+		$header = $this->header(translate('Account'),false,true);
+		$footer = $this->footer();
+		return view('account.edit')->with(compact('header','footer', 'customer'))->render(); 
 	}
 	public function invoice($order_id)
 	{

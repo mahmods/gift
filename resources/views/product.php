@@ -215,138 +215,129 @@
 			</div>
 			<!-- // Product Block -->
 		</div>
-</div>
-<div class="container">
-	<div class="content product-page">
-		<div class="col-md-6">
-			<div class="rating">
-				<?php $tr = $rating; $i = 0; while($i<5){ $i++;?>
-					<i class="star<?=($i<=$rating) ? '-selected' : '';?>"></i>
-				<?php $tr--; }?>
-				<b> <?=$total_ratings.' '.translate('Reviews')?> </b>
-			</div>
-			<?=string_cut(translate($product->text),600,' ...')?>
-			<div class="order">
-				<?php if ($product->quantity > 0) { ?>
-				
-					<?php
-						$all_options = json_decode($product->options,true);
-						if(!empty($all_options)){
-						?>
-						<form class="options" style="background:rgb(249, 250, 252)">
-						<?php
-							foreach($all_options as $i=>$row){
-								$type = $row['type'];
-								$name = $row['name'];
-								$title = $row['title'];
-								$option = $row['option'];
-							?>
-							<div class="option">
-								<h6><?php echo $title.' :';?></h6>
-								<?php
-									if($type == 'radio'){
-									?>
-									<div class="custom_radio">
-										<?php
-											$i=1;
-											foreach ($option as $op) {
-											?>
-											<label for="<?php echo 'radio_'.$i; ?>" style="display: block;"><input type="radio" name="<?php echo $name;?>" value="<?php echo $op;?>" id="<?php echo 'radio_'.$i; ?>"><?php echo $op;?></label>
-											<?php
-												$i++;
-											}
-										?>
-									</div>
-									<?php
-										} else if($type == 'text'){
-									?>
-									<textarea class="form-control" rows="2" style="width:100%" name="<?php echo $name;?>"></textarea>
-									<?php
-										} else if($type == 'select'){
-									?>
-									<select name="<?php echo $name; ?>" class="form-control" type="text">
-										<option value=""><?php echo translate('Choose one'); ?></option>
-										<?php
-											foreach ($option as $op) {
-											?>
-											<option value="<?php echo $op; ?>" ><?php echo $op; ?></option>
-											<?php
-											}
-										?>
-									</select>
-									<?php
-										} else if($type == 'multi_select') {
-										$j=1;
-										foreach ($option as $op){
-										?>
-										<label for="<?php echo 'check_'.$j; ?>" style="display: block;">
-											<input type="checkbox" id="<?php echo 'check_'.$j; ?>" name="<?php echo $name;?>[]" value="<?php echo $op;?>">
-											<?php echo $op;?>
-										</label>
-										<?php
-											$j++;
-										}
-									}
-								?>
-							</div>
-						<?php 
-							}
-						?>
-						</form>
-					<?php
-						}
-					?> 
-					<button class="add-cart bg" data-id="<?=$product->id?>"><?=translate('Add to cart')?></button>
-				<?php } else { ?>
-					<p>Quantity unavailable</p>
-				<?php } ?>
-			</div>
-		</div>
-	</div>
-	<div class="content">
-		<div class="tab-content">
-			<div class="tab-pane" id="reviews">
 
-				<form action="" method="post" id="review" class="form-horizontal single">
-					<div id="response"></div>
-					<h5><?=translate('Add a review')?> :</h5>
-					<fieldset>
-						<div class="row">
-							<div class="form-group col-md-4">
-								<label class="control-label"><?=translate('Name')?></label>
-								<input name="name" value="" class="form-control" type="text">
-							</div>
-							<div class="form-group col-md-4">
-								<label class="control-label"><?=translate('E-mail')?></label>
-								<input name="email" value="" class="form-control" type="text">
-							</div>
-							<div class="form-group col-md-4">
-								<label class="control-label"><?=translate('Rating')?></label>
-								<div id="star-rating">
-									<input type="radio" name="rating" class="rating" value="1" />
-									<input type="radio" name="rating" class="rating" value="2" />
-									<input type="radio" name="rating" class="rating" value="3" />
-									<input type="radio" name="rating" class="rating" value="4" />
-									<input type="radio" name="rating" class="rating" value="5" />
+	<!-- Review Form -->
+	<div class="cart-totals">
+		<div class="content-box">
+				<h3 class="title">
+					<?php $tr = $rating; $i = 0; while($i<5){ $i++;?>
+						<i class="ti-star<?=($i<=$rating) ? ' active' : '';?>"></i>
+					<?php $tr--; }?>
+					<?=$total_ratings.' '.translate('Reviews')?>
+				</h3>
+
+				<p><?=string_cut(translate($product->text),600,' ...')?></p>
+
+				<div class="order">
+					<?php if ($product->quantity > 0) { ?>
+						<?php
+							$all_options = json_decode($product->options,true);
+							if(!empty($all_options)){
+							?>
+							<form class="options" style="background:rgb(249, 250, 252)">
+							<?php
+								foreach($all_options as $i=>$row){
+									$type = $row['type'];
+									$name = $row['name'];
+									$title = $row['title'];
+									$option = $row['option'];
+								?>
+								<div class="option">
+									<h6><?php echo $title.' :';?></h6>
+									<?php
+										if($type == 'radio'){
+										?>
+										<div class="custom_radio">
+											<?php
+												$i=1;
+												foreach ($option as $op) {
+												?>
+												<label for="<?php echo 'radio_'.$i; ?>" style="display: block;"><input type="radio" name="<?php echo $name;?>" value="<?php echo $op;?>" id="<?php echo 'radio_'.$i; ?>"><?php echo $op;?></label>
+												<?php
+													$i++;
+												}
+											?>
+										</div>
+										<?php
+											} else if($type == 'text'){
+										?>
+										<textarea rows="2" style="width:100%" name="<?php echo $name;?>"></textarea>
+										<?php
+											} else if($type == 'select'){
+										?>
+										<select name="<?php echo $name; ?>" type="text">
+											<option value=""><?php echo translate('Choose one'); ?></option>
+											<?php
+												foreach ($option as $op) {
+												?>
+												<option value="<?php echo $op; ?>" ><?php echo $op; ?></option>
+												<?php
+												}
+											?>
+										</select>
+										<?php
+											} else if($type == 'multi_select') {
+											$j=1;
+											foreach ($option as $op){
+											?>
+											<label for="<?php echo 'check_'.$j; ?>" style="display: block;">
+												<input type="checkbox" id="<?php echo 'check_'.$j; ?>" name="<?php echo $name;?>[]" value="<?php echo $op;?>">
+												<?php echo $op;?>
+											</label>
+											<?php
+												$j++;
+											}
+										}
+									?>
 								</div>
-							</div>
+							<?php 
+								}
+							?>
+							</form>
+						<?php
+							}
+						?> 
+						<button class="btn primary add-cart" data-id="<?=$product->id?>"><?=translate('Add to cart')?></button>
+					<?php } else { ?>
+						<p>Quantity unavailable</p>
+					<?php } ?>
+				</div>
+				<!-- // Order -->
+			<form action="" method="post" id="review" class="form-ui">
+				<div id="response"></div>
+				<h5 class="title"><?=translate('Add a review')?> :</h5>
+				<div class="row">
+					<div class="col-s-12 col-m-4">
+						<label><?=translate('Name')?></label>
+						<input name="name" value="" type="text">
+					</div>
+					<div class="col-s-12 col-m-4">
+						<label><?=translate('E-mail')?></label>
+						<input name="email" value="" type="text">
+					</div>
+					<div class="col-s-12 col-m-4">
+						<label><?=translate('Rating')?></label>
+						<div id="star-rating">
+							<input type="radio" name="rating" class="rating" value="1" />
+							<input type="radio" name="rating" class="rating" value="2" />
+							<input type="radio" name="rating" class="rating" value="3" />
+							<input type="radio" name="rating" class="rating" value="4" />
+							<input type="radio" name="rating" class="rating" value="5" />
 						</div>
-						<div class="form-group">
-							<label class="control-label"><?=translate('Review')?></label>
-							<textarea name="review" type="text" rows="5" class="form-control"></textarea>
-						</div>
-						<button data-product="<?=$product->id?>" name="submit" id="submit-review" class="btn btn-primary" ><?=translate('submit')?></button>
-					</fieldset>
-				</form>
-			</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label><?=translate('Review')?></label>
+					<textarea name="review" type="text" rows="5"></textarea>
+				</div>
+				<button data-product="<?=$product->id?>" name="submit" id="submit-review" class="btn primary add-cart" ><?=translate('submit')?></button>
+			</form>
 		</div>
 	</div>
+	<!-- // Review Form -->
 </div>
-<style>
-	.zoomImg {
-	background: white;
-	}
-</style>
+
+
 <script>
 /* 	
 	$('#star-rating').rating();

@@ -66,8 +66,8 @@
 						<li><a href="./account">لوحة التحكم في الحساب</a></li>
 						<li><a href="./account/edit">البيانات الشخصية</a></li>
 						<li><a href="./account/address">سجل العناوين</a></li>
-						<li><a href="./orders">طلباتي</a></li>
-						<li><a href="./coupon">كوبونات الخصم</a></li>
+						<li><a href="./account/orders">طلباتي</a></li>
+						<li><a href="./account/coupon">كوبونات الخصم</a></li>
 					</ul>
 				</div>
 			</div>

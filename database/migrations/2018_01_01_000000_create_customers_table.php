@@ -20,6 +20,7 @@ class CreateCustomersTable extends Migration
             $table->integer('gender');
             $table->text('email');
             $table->text('password');
+            $table->integer('main_address_id')->unsigned();
             $table->text('sid');
             $table->timestamps();
         });

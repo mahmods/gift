@@ -62,7 +62,7 @@
 	<div class="row row-reverse">
         <div class="col-s-12 col-l-9">
             <a class="btn primary" data-modal="modal-demo" href="#">إضافة عنوان جديد</a>
-            <div class="row">
+            <div id="main" class="row">
             <?php foreach($addresses as $address) : ?>
                 <div data-id="<?=$address->id?>" class="address-block col-s-12 col-l-4">
                     <div style="padding: 25px;border: 1px solid rgba(0,0,0,.10)">
@@ -72,6 +72,7 @@
                         <p><?=$address->phone?></p>
                         <p><a href="account/address/<?=$address->id?>/edit">Edit</a></p>
                         <p><a class="deleteAddress" data-id="<?=$address->id?>" href="javascript:void(0)">Delete</a></p>
+                        <p><a href="#">Mark as default</a></p>
                     </div>
                 </div>
             <?php endforeach ?>
@@ -84,9 +85,9 @@
 					<ul>
 						<li><a href="./account">لوحة التحكم في الحساب</a></li>
 						<li><a href="./account/edit">البيانات الشخصية</a></li>
-						<li><a href="./address">سجل العناوين</a></li>
-						<li><a href="./orders">طلباتي</a></li>
-						<li><a href="./coupon">كوبونات الخصم</a></li>
+						<li><a href="./account/address">سجل العناوين</a></li>
+						<li><a href="./account/orders">طلباتي</a></li>
+						<li><a href="./account/coupon">كوبونات الخصم</a></li>
 					</ul>
 				</div>
 			</div>
@@ -100,11 +101,32 @@ $("#addAddress").on("click", function() {
         $(this).removeClass("error");
     });
     $("#errorAlert").fadeOut();
+    var formData = $('#addAddressForm').serializeArray();
+    var form = {};
+    var formData = formData.forEach(function(el) {
+        var key = el.name;
+        form[key] = el.value;
+    })
+    formData = form;
+    console.log(formData);
     $.ajax({
         url: "./api/address/add",
         method: "POST",
         data: $("#addAddressForm").serialize(),
-        success: function(html){
+        success: function(data){
+            var data = JSON.parse(data);
+            $("#main").append(`
+            <div data-id="${data.id}" class="address-block col-s-12 col-l-4">
+                <div style="padding: 25px;border: 1px solid rgba(0,0,0,.10)">
+                    <p>${formData.first_name}</p>
+                    <p>${formData['last_name']}</p>
+                    <p>${formData['city']} ${formData['region']} ${formData['address_1']}</p>
+                    <p>${formData['phone']}</p>
+                    <p><a href="account/address/${data.id}/edit">Edit</a></p>
+                    <p><a class="deleteAddress" data-id="${data.id}" href="javascript:void(0)">Delete</a></p>
+                </div>
+            </div>
+            `);
             $('#modal-demo').removeClass("active");
             $("#successAlert").html("The address has been added successfully.");
             $("#successAlert").fadeIn();
@@ -126,7 +148,7 @@ $("#addAddress").on("click", function() {
     });
 })
 
-$(".deleteAddress").click(function(e) {
+$(document).on("click", ".deleteAddress", function(e) {
     var id = $(this).data("id");
     $.ajax({
         url: "./api/address/delete",

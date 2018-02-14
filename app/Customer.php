@@ -17,4 +17,8 @@ class Customer extends Model
     public function addresses() {
         return $this->hasMany('App\Address');
     }
+
+    public function mainAddress() {
+        return $this->hasOne('App\Address');
+    }
 }

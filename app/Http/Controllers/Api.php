@@ -766,6 +766,7 @@ class Api extends Controller
 
 		$response = array();
 		$response['success'] = true;
+		$response['id'] = $address->id;
 		return json_encode($response);
 	}
 

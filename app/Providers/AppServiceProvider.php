@@ -3,6 +3,7 @@
 namespace App\Providers;
 use App\Http\Controllers\Frontend;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
         view()->composer('errors::404', function($view)
         {
 			$header = (new Frontend())->header(false,false,false,true);

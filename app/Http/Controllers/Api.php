@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Validator;
 
 class Api extends Controller
 {
@@ -735,6 +736,48 @@ class Api extends Controller
 			$data['time'] = timegap($row->time);
 			$data['timestamp'] = $row->time;
 			array_push($response["reviews"], $data);
+		}
+		return json_encode($response);
+	}
+	
+	public function addAddress(Request $request) {
+		$rules = [
+			'first_name' => 'required',
+			'last_name' => 'required',
+			'phone' => 'required',
+			'address_1' => 'required',
+			'address_2' => 'required',
+			'city' => 'required',
+			'region' => 'required',
+		];
+		
+		$validator = Validator::make($request->all(), $rules)->validate();
+		$address = new \App\Address;
+		$customer = \App\Customer::where("sid", $request->token)->select("id")->first();
+		$address->customer_id = $customer->id;
+		$address->first_name = $request->first_name;
+		$address->last_name = $request->last_name;
+		$address->phone = $request->phone;
+		$address->address_1 = $request->address_1;
+		$address->address_2 = $request->address_2;
+		$address->city = $request->city;
+		$address->region = $request->region;
+		$address->save();
+
+		$response = array();
+		$response['success'] = true;
+		return json_encode($response);
+	}
+
+	public function deleteAddress(Request $request) {
+		$response = array();
+		if(isset($request->id)) {
+			$id = $request->id;
+			$address = \App\Address::find($id);
+			$address->delete();
+			$response['success'] = true;
+		} else {
+			$response['success'] = false;
 		}
 		return json_encode($response);
 	}

@@ -13,4 +13,8 @@ class Customer extends Model
     protected $hidden = [
         'password', 'sid',
     ];
+
+    public function addresses() {
+        return $this->hasMany('App\Address');
+    }
 }

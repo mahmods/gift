@@ -29,3 +29,6 @@ Route::get('/coupon', 'Api@coupon');
 Route::get('/subscribe', 'Api@subscribe');
 Route::get('/orders', 'Api@orders')->middleware('token');
 Route::get('/reviews', 'Api@reviews')->middleware('token');
+
+Route::post('/address/add', 'Api@addAddress')->middleware('userToken');
+Route::post('/address/delete', 'Api@deleteAddress')->middleware('userToken');

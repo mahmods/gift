@@ -461,6 +461,44 @@ class Frontend extends Controller
 		$footer = $this->footer();
 		return view('account.edit')->with(compact('header','footer', 'customer'))->render(); 
 	}
+
+	public function address(Request $request) {
+		$header = $this->header(translate('Addresses'),false,true);
+		$footer = $this->footer();
+		$customer = \App\Customer::where('id', customer('id'))->first();
+		$addresses = $customer->addresses;
+		return view("account.address")->with(compact('header', 'footer', 'addresses'));
+	}
+
+	public function addressEdit(Request $request, $id) {
+		$address = \App\Address::where('id', $id)->first();
+		if ($request->isMethod("post")) {
+			$rules = [
+				'first_name' => 'required',
+				'last_name' => 'required',
+				'phone' => 'required',
+				'address_1' => 'required',
+				'address_2' => 'required',
+				'city' => 'required',
+				'region' => 'required',
+			];
+
+			$validator = Validator::make($request->all(), $rules)->validate();
+			$address->first_name = $request->first_name;
+			$address->last_name = $request->last_name;
+			$address->phone = $request->phone;
+			$address->address_1 = $request->address_1;
+			$address->address_2 = $request->address_2;
+			$address->city = $request->city;
+			$address->region = $request->region;
+			$address->save();
+			return redirect("account/address");
+		}
+		$header = $this->header(translate('Addresses'),false,true);
+		$footer = $this->footer();
+		return view("account.address_edit")->with(compact('header', 'footer', 'address'));
+	}
+
 	public function invoice($order_id)
 	{
 		// Check if the order exists and return order details

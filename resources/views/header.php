@@ -90,20 +90,6 @@
 					<?php }?>
                     <!-- // My Account -->
                     
-                    <!-- Wishlist -->
-                    <div class="cart-area">
-                        <a href="#" class="cart-btn">
-                            <i class="heart-icon"></i>
-                            <h3>قائمة الاماني <span>عدد المنتجات : 50</span></h3>
-                        </a>
-                        
-                        <div class="cart-dropdown">
-                            <ul>
-
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- // Wishlist -->
                     <!-- TODO cart integration -->
                     <!-- Cart -->
                     <div class="cart-area toggle-cart">

@@ -4,25 +4,25 @@
 	{
 		echo notices().'<form action="" method="post" class="form-horizontal single">
 				'.csrf_field().'
-				<h5><a href="builder"><i class="icon-arrow-left"></i></a>Add new bloc</h5>
+				<h5><a href="builder"><i class="icon-arrow-left"></i></a>Add new Ad</h5>
 					<fieldset>
 						  <div class="form-group">
-							<label class="control-label">Area</label>
-							<select name="area" class="form-control">
-								<option value="home">Homepage</option>
-								<option value="page">Page</option>
-								<option value="post">Post</option>
-							</select>
+							<label class="control-label">Name</label>
+							<input name="name" type="text" class="form-control" required/>
 						  </div>
 						  <div class="form-group">
-							<label class="control-label">Content</label>
-							<textarea name="content" type="text"  class="form-control" required></textarea>
+							<label class="control-label">Images</label>
+
+							<input name="url_1" placeholder="Image link" type="text" class="form-control"/>
+							<input name="image_1" type="file" class="form-control"/>
+							<hr>
+							<input name="url_2" placeholder="Image link" type="text" class="form-control"/>
+							<input name="image_2" type="file" class="form-control"/>
+							<hr>
+							<input name="url_3" placeholder="Image link" type="text" class="form-control"/>
+							<input name="image_3" type="file" class="form-control"/>
 						  </div>
-						  <div class="form-group">
-							<label class="control-label">Title</label>
-							<input name="title" type="text" class="form-control" required/>
-						  </div>
-						  <input name="add" type="submit" value="Add bloc" class="btn btn-primary" />
+						  <input name="add" type="submit" value="Add" class="btn btn-primary" />
 					</fieldset>
 				</form>';
 	}
@@ -49,14 +49,11 @@
 		$bold = "style='font-weight:bold;'";
 ?>
 <div class="head">
-	<h3>Page builder<a href="builder/add" class="add">Add bloc</a></h3>
-	<a <?= $area == "home" ? $bold :"" ?> href="builder">Homepage</a> - 
-	<a <?= $area == "page" ? $bold :"" ?> href="builder/page">Pages</a> - 
-	<a <?= $area == "post" ? $bold :"" ?> href="builder/post">Blog post</a>
+	<h3>Ads Manager<a href="ads/add" class="add">Add Ad</a></h3>
 </div>
 <?php
 		echo notices()."<ul>";
-		foreach ($blocs as $bloc){
+		foreach ($ads as $bloc){
 			echo '<li id="'.$bloc->id.'" class="m"><h4>'.$bloc->type.'</h4>
 			<div class="tools">
 			<a href="builder/delete/'.$bloc->id.'"><i class="icon-trash"></i></a>

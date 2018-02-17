@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $key = "test";
         $desc = "test";
         $semail = "admin@admin.com";
-        \App\Config::insert(['id' => 1,'registration' => 1,'theme' => 'mahacode','lang' => 'en','translations' => 1,'views' => 0,'name' => $sname,'email' => $semail,'desc' => $desc,'key' => $key,'logo' => 'assets/logo.png','floating_cart' => 1,'tumblr' => 'http://tumblr.com','youtube' => 'http://youtube.com','facebook' => 'http://facebook.com','instagram' => 'http://instagram.com','twitter' => 'http://twitter.com','phone' => '+1 55 5555 555','address' => 'Example Street Ex. City']);
+        \App\Config::insert(['id' => 1,'registration' => 1,'theme' => 'mahacode','lang' => 'en','translations' => 1,'views' => 1,'name' => $sname,'email' => $semail,'desc' => $desc,'key' => $key,'logo' => 'assets/logo.png','floating_cart' => 1,'tumblr' => 'http://tumblr.com','youtube' => 'http://youtube.com','facebook' => 'http://facebook.com','instagram' => 'http://instagram.com','twitter' => 'http://twitter.com','phone' => '+1 55 5555 555','address' => 'Example Street Ex. City', 'blocs_types' => 'categoriesSlider|category|ads']);
 
         \App\Administrator::insert([
             'name' => 'admin',
@@ -258,11 +258,11 @@ class DatabaseSeeder extends Seeder
 			(238, \'ZM\', \'Zambia\', 260, 0, 0),
             (239, \'ZW\', \'Zimbabwe\', 263, 0, 0);'));
             
-            DB::statement(DB::raw('INSERT INTO `blocs` (`id`, `area`, `content`, `title`, `o`) VALUES
-			(2, \'home\', \'widget:categoriesSlider\', \'Slider\', 1),
-			(3, \'home\', \'widget:category:2\', \'Men Cat\', 2),
-			(4, \'home\', \'widget:category:3\', \'Women Cat\', 3),
-			(5, \'home\', \'widget:category:4\', \'Kids Cat\', 4);'));
+            DB::statement(DB::raw('INSERT INTO `blocs` (`id`, `area`, `type`, `o`) VALUES
+			(2, \'home\', \'categoriesSlider\', 1),
+			(3, \'home\', \'category\', 2),
+			(4, \'home\', \'category\', 3),
+			(5, \'home\', \'category\', 4);'));
             
             DB::statement(DB::raw('INSERT INTO `categories` (`id`, `path`, `parent`) VALUES
 			(2, \'men\', \'0\'),

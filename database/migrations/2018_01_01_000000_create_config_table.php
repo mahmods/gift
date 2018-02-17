@@ -33,6 +33,7 @@ class CreateConfigTable extends Migration
             $table->text('twitter');
             $table->text('phone');
             $table->text('address');
+            $table->text('blocs_types');
             $table->timestamps();
         });
     }

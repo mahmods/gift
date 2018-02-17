@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBlocsTable extends Migration
+class CreateAdItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateBlocsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blocs', function (Blueprint $table) {
+        Schema::create('ad_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('area');
-            //$table->text('content');
-            $table->text('type');
-            //$table->text('title');
+            $table->integer('ad_id')->unsigned();
+            $table->foreign('ad_id')->references('id')->on('ads')->onDelete('cascade');
+            $table->text('image');
+            $table->text('url');
             $table->integer('o')->default('1');
-            //$table->timestamps();
         });
     }
 
@@ -31,6 +30,6 @@ class CreateBlocsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blocs');
+        Schema::dropIfExists('ad_items');
     }
 }

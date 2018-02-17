@@ -43,6 +43,7 @@ Route::match(['get', 'post'],'/slider/{action?}/{id?}', 'Admin@slider')->middlew
 Route::match(['get', 'post'],'/editor/{file?}', 'Admin@editor')->middleware('Login');
 Route::match(['get', 'post'],'/templates/{action?}/{id?}', 'Admin@templates')->middleware('Login');
 Route::match(['get', 'post'],'/builder/{action?}/{id?}', 'Admin@builder')->middleware('Login');
+Route::match(['get', 'post'],'/ads/{action?}/{id?}', 'Admin@ads')->middleware('Login');
 Route::match(['get', 'post'],'/menu/{action?}/{id?}', 'Admin@menu')->middleware('Login');
 Route::match(['get', 'post'],'/bottom/{action?}/{id?}', 'Admin@bottom')->middleware('Login');
 Route::match(['get', 'post'],'/fields/{action?}/{id?}', 'Admin@fields')->middleware('Login');

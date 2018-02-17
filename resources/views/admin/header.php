@@ -101,6 +101,7 @@
 											<li <?=($area == "editor" ? "class=active" : "")?>><a href="editor"><i class="icon-pencil"></i> <span>Theme editor</span></a></li>
 											<li <?=($area == "templates" ? "class=active" : "")?>><a href="templates"><i class="icon-book-open"></i> <span>Templates</span></a></li>
 											<li <?=($area == "builder" ? "class=active" : "")?>><a href="builder"><i class="icon-layers"></i> <span>Page builder</span></a></li>
+											<li <?=($area == "ads" ? "class=active" : "")?>><a href="ads"><i class="icon-layers"></i> <span>Ads</span></a></li>
 											<li <?=($area == "menu" ? "class=active" : "")?>><a href="menu"><i class="icon-list"></i> <span>Main menu</span></a></li>
 											<li <?=($area == "bottom" ? "class=active" : "")?>><a href="bottom"><i class="icon-list"></i> <span>Footer menu</span></a></li>
 											<li <?=($area == "fields" ? "class=active" : "")?>><a href="fields"><i class="icon-grid"></i> <span>Extrafields</span></a></li>

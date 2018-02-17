@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBlocsTable extends Migration
+class CreateBlocsMetaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateBlocsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blocs', function (Blueprint $table) {
+        Schema::create('blocsmeta', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('area');
-            //$table->text('content');
-            $table->text('type');
-            //$table->text('title');
-            $table->integer('o')->default('1');
-            //$table->timestamps();
+            $table->integer('bloc_id')->unsigned();
+            $table->foreign('bloc_id')->references('id')->on('blocs')->onDelete('cascade');
+            $table->string('meta_key');
+            $table->text('meta_value');
         });
     }
 
@@ -31,6 +29,6 @@ class CreateBlocsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blocs');
+        Schema::dropIfExists('blocsmeta');
     }
 }

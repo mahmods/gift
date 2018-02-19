@@ -1,10 +1,11 @@
+<?php $category = \App\Category::where('id', $bloc_meta)->first(); ?>
 <!-- Flowers Products -->
 <div class="section-head green">
-    <h2><?=$data['category']->name?></h2>
-    <a href="products/<?=$data['category']->path?>" class="more-btn"><?=translate("Shop now")?></a>
+    <h2><?=$category->name?></h2>
+    <a href="products/<?=$category->path?>" class="more-btn"><?=translate("Shop now")?></a>
 </div>
 <?php
-$products = \App\Product::where('category', $data['category']->id)->get();
+$products = \App\Product::where('category', $category->id)->get();
 ?>
 <div class="carousel-slider row green">
     <?php foreach($products as $product) : ?>

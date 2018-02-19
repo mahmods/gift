@@ -1059,20 +1059,31 @@ class Admin extends Controller
 			return "Succesfully updated";
 		}
 		if(isset(request()->add)){
+			$data['type'] = request()->type;
 			$data['area'] = request()->area;
-			$data['content'] = request()->content;
-			$data['title'] = request()->title;
-			\App\Bloc::insert($data);
+			$id = \App\Bloc::insertGetId($data);
+			if (request()->meta) {
+			\App\BlocMeta::insert([
+				'bloc_id' => $id,
+				'meta_key' => 'action_id',
+				'meta_value' => request()->meta
+				]);
+			}
 			notices("success","The bloc has been added successfully !");
 		}
 		if(isset(request()->edit)){
-			$data['content'] = request()->content;
-			$data['title'] = request()->title;
+			$data['type'] = request()->type;
 			\App\Bloc::where(["id" => $action_id])->update($data);
+			if (request()->meta) {
+				\App\BlocMeta::where('bloc_id', $action_id)->first()->update([
+					'meta_value' => request()->meta
+				]);
+			}
 			notices("success","The bloc has been updated successfully !");
 		}
 		if($action == 'edit') {
 			$bloc =	\App\Bloc::where(["id" => $action_id])->first();
+			$bloc_meta = \App\BlocMeta::where(["bloc_id" => $action_id])->first()['meta_value'];
 		}
 		if($action == 'delete')
 		{
@@ -1084,9 +1095,10 @@ class Admin extends Controller
 		$types = explode('|', $this->cfg->blocs_types);
 		//dd($this->cfg->blocs_types);
 		$categories = \App\Category::all();
+		$ads = \App\Ads::all();
 		$tp = url("/themes/".$this->cfg->theme);
 		$footer = $this->footer();
-		return view('admin/builder')->with(compact('header','action','bloc','blocs','tp','footer', 'area','types', 'categories'));
+		return view('admin/builder')->with(compact('header','action','bloc','blocs','tp','footer', 'area','types', 'categories', 'ads', 'bloc_meta'));
 	}
 
 	public function ads($action = 'list',$action_id = 0){
@@ -1107,75 +1119,86 @@ class Admin extends Controller
 
 			$items = array();
 
-			if (request()->file('images')) {
-				// Upload selected images to product assets directory
-				$order = 0;
-				$images = array();
-				foreach (request()->file('images') as $file) {
-					$name = $file->getClientOriginalName();
+			$items[] = [
+				'url' => request()->url_1,
+				'image' => request()->file('image_1') ? request()->file('image_1') : null
+			];
+			$items[] = [
+				'url' => request()->url_2,
+				'image' => request()->file('image_2') ? request()->file('image_2') : null
+			];
+			$items[] = [
+				'url' => request()->url_3,
+				'image' => request()->file('image_3') ? request()->file('image_3') : null
+			];
+
+			$order = 0;
+			foreach ($items as $item) {
+				$file = $item['image'];
+				if ($file !== null) {
 					if (in_array($file->getClientOriginalExtension(), array("jpg", "png", "gif", "bmp"))){
-						$images[] = $image = $product->id.'-'.$order.'.'.$file->getClientOriginalExtension();
+						$name = $file->getClientOriginalName();
+						$item['image'] = $image = $ad.'-'.$order.'.'.$file->getClientOriginalExtension();
 						$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'products';
 						$file->move($path,$image);
-						$order++;
 					} else {
 						notices("warning","$name is not a valid format");
 					}
 				}
-				$product->update(["images" => implode(',',$images)]);
-			}
-
-
-			if (request()->file('image_1')) {
-				$items[] = [
-					'url' => request()->url_1,
-					'image' => request()->file('image_1')
-				];
-			}
-			if (request()->file('image_2')) {
-				$items[] = [
-					'url' => request()->url_2,
-					'image' => request()->file('image_2')
-				];
-			}
-			if (request()->file('image_3')) {
-				$items[] = [
-					'url' => request()->url_3,
-					'image' => request()->file('image_3')
-				];
-			}
-
-			foreach ($items as $item) {
-				$file = $item['images'];
-				$name = $file->getClientOriginalName();
-				if (in_array($file->getClientOriginalExtension(), array("jpg", "png", "gif", "bmp"))){
-					$images[] = $image = $product->id.'-'.$order.'.'.$file->getClientOriginalExtension();
-					$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'products';
-					$file->move($path,$image);
-					//$order++;
-					\App\AdItem::insert([
-						'ad_id' => $ad,
-						'url' => $item->url,
-						'image' => $item->image,
-					]);
-				} else {
-					notices("warning","$name is not a valid format");
-				}
+				\App\AdItem::insert([
+					'ad_id' => $ad,
+					'url' => $item['url'],
+					'image' => $item['image'],
+				]);
+				$order++;
 			}
 			notices("success","The bloc has been added successfully !");
 		}
 		if(isset(request()->edit)){
+			$data['name'] = request()->name;
+			\App\Ads::where(["id" => $action_id])->update($data);
+
+			$items = array();
+			$items[] = [
+				'url' => request()->url_1,
+				'image' => request()->file('image_1') ? request()->file('image_1') : null
+			];
+			$items[] = [
+				'url' => request()->url_2,
+				'image' => request()->file('image_2') ? request()->file('image_2') : null
+			];
+			$items[] = [
+				'url' => request()->url_3,
+				'image' => request()->file('image_3') ? request()->file('image_3') : null
+			];
+			$storedItems = \App\AdItem::where("ad_id", $action_id)->get();
+			$order = 0;
+			foreach ($items as $index => $item) {
+				$storedItems[$index]->update(['url' => $item['url']]);
+				if ($item['image'] != null) {
+					$file = $item['image'];
+					$name = $file->getClientOriginalName();
+					if (in_array($file->getClientOriginalExtension(), array("jpg", "png", "gif", "bmp"))){
+						$image = $action_id.'-'.$order.'.'.$file->getClientOriginalExtension();
+						$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'products';
+						$file->move($path,$image);
+						$storedItems[$index]->update(['image' => $image]);
+					} else {
+						notices("warning","$name is not a valid format");
+					}
+				}
+				$order++;
+			}
 			$data['content'] = request()->content;
 			$data['title'] = request()->title;
-			\App\Bloc::where(["id" => $action_id])->update($data);
 			notices("success","The bloc has been updated successfully !");
 		}
 		if($action == 'edit') {
-			$bloc =	\App\Bloc::where(["id" => $action_id])->first();
+			$ad =	\App\Ads::where(["id" => $action_id])->first();
 		}
 		if($action == 'delete')
 		{
-			\App\Bloc::where(["id" => $action_id])->delete();
+			\App\Ads::where(["id" => $action_id])->delete();
 			notices("success","The bloc has been deleted successfully !");
 		}
 		$header = $this->header('Ads Manager','ads');

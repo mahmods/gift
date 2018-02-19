@@ -41,7 +41,7 @@
                 
                 <div class="col-s-12 col-m-6">
                     <label class="required">إسم الشارع / رقم العمارة / رقم الشقة</label>
-                    <textarea name="address_details" type="text" placeholder="رقم الشقة + معلومات اضافية للعنوان">value="<?= session("checkout.address_details") ?>"</textarea>
+                    <textarea name="address_details" type="text" placeholder="رقم الشقة + معلومات اضافية للعنوان"><?= session("checkout.address_details") ?></textarea>
                 </div>
                 
                 <div class="col-s-12 col-m-6">

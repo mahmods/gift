@@ -13,15 +13,16 @@
 								<option value="page">Page</option>
 								<option value="post">Post</option>
 							</select>
-						  </div>
-						  <div class="form-group">
-							<label class="control-label">Content</label>
-							<textarea name="content" type="text"  class="form-control" required></textarea>
-						  </div>
-						  <div class="form-group">
-							<label class="control-label">Title</label>
-							<input name="title" type="text" class="form-control" required/>
-						  </div>
+							</div>
+							<div class="form-group">
+							<label class="control-label">Type</label>
+							<select id="type" name="type">';
+							foreach ($types as $type) {
+								echo '<option value="'.$type.'">'.$type.'</option>';
+							}
+							echo'</select>
+							</div>
+							<div id="BuilderTypeForm"></div>
 						  <input name="add" type="submit" value="Add bloc" class="btn btn-primary" />
 					</fieldset>
 				</form>';
@@ -36,7 +37,7 @@
 							<label class="control-label">Type</label>
 							<select id="type" name="type">';
 							foreach ($types as $type) {
-								echo '<option value="'.$type.'" '. ($bloc->type == $type ? 'selected':'') .'>'.$type.'</option>';
+								echo '<option value="'.$type.'"'. ($bloc->type == $type ? 'selected':'') .'>'.$type.'</option>';
 							}
 							echo'</select>
 							</div>
@@ -96,8 +97,10 @@
 		});
 	});
 
-	var categories = '<?=json_encode($categories)?>';
-	categories = JSON.parse(categories);
+	var categories = JSON.parse('<?=json_encode($categories)?>');
+	var ads = JSON.parse('<?=json_encode($ads)?>');
+	var selectedMeta = <?=isset($bloc_meta) ? $bloc_meta : "null"?>;
+console.log(selectedMeta);
 	function generateForm() {
 		var form = '';
 		var type = $('#type').val();
@@ -107,23 +110,32 @@
 				form += `
 				<div class="form-group">
 				<label class="control-label">Category</label>
-				<select id="type" name="type">`;
+				<select name="meta">`;
 				categories.forEach(category => {
-					form += `<option value="${category.id}">${category.name}</option>`
+					form += `<option value="${category.id}" ` + (category.id == selectedMeta ? "selected" : "") + `>${category.name}</option>`;
 				});
-				form += `</select></div>`
+				form += `</select></div>`;
+				break;
+			case 'ads':
+				form += `
+				<div class="form-group">
+				<label class="control-label">Ads</label>
+				<select name="meta">`;
+				ads.forEach(ad => {
+					form += `<option value="${ad.id}" ` + (ad.id == selectedMeta ? "selected" : "") + `>${ad.name}</option>`;
+				});
+				form += `</select></div>`;
 				break;
 		
 			default:
 				break;
 		}
-
-		return form;
+		$("#BuilderTypeForm").html(form);
 	}
+	generateForm()
 
 	$("#type").on("change", function() {
-		console.log(generateForm());
-		$("#BuilderTypeForm").html(generateForm());
+		generateForm();
 	});
 	</script>
 <?php echo $footer?>

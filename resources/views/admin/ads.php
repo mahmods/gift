@@ -2,9 +2,9 @@
 	echo $header;
 	if($action == "add")
 	{
-		echo notices().'<form action="" method="post" class="form-horizontal single">
+		echo notices().'<form action="" method="post" enctype="multipart/form-data" class="form-horizontal single">
 				'.csrf_field().'
-				<h5><a href="builder"><i class="icon-arrow-left"></i></a>Add new Ad</h5>
+				<h5><a href="ads"><i class="icon-arrow-left"></i></a>Add new Ad</h5>
 					<fieldset>
 						  <div class="form-group">
 							<label class="control-label">Name</label>
@@ -28,22 +28,39 @@
 	}
 	elseif($action == "edit")
 	{
-		echo notices().'<form action="" method="post" class="form-horizontal single">
+		echo notices().'<form action="" method="post" enctype="multipart/form-data" class="form-horizontal single">
 				'.csrf_field().'
-				<h5><a href="builder"><i class="icon-arrow-left"></i></a>Edit bloc</h5>
-					<fieldset>
-							<div class="form-group">
-							<label class="control-label">Type</label>
-							<select id="type" name="type">';
-							foreach ($types as $type) {
-								echo '<option value="'.$type.'" '. ($bloc->type == $type ? 'selected':'') .'>'.$type.'</option>';
-							}
-							echo'</select>
-							</div>
-							<div id="BuilderTypeForm"></div>';
-							echo '
-						  <input name="edit" type="submit" value="Edit bloc" class="btn btn-primary" />
-					</fieldset>
+				<h5><a href="ads"><i class="icon-arrow-left"></i></a>Edit Ads</h5>
+				<fieldset>
+						<div class="form-group">
+						<label class="control-label">Name</label>
+						<input name="name" type="text" class="form-control" value="'.$ad->name.'" required/>
+						</div>
+						<div class="form-group">
+						<label class="control-label">Images</label>';
+						if (!empty($ad->items[0]->image)){
+							echo '<img class="col-md-2" src="'.url('/assets/products/'.$ad->items[0]->image).'" />';
+						}
+						echo '
+						<input name="url_1" value="'.$ad->items[0]->url.'" placeholder="Image link" type="text" class="form-control"/>
+						<input name="image_1" type="file" class="form-control"/>
+						<hr>';
+						if (!empty($ad->items[1]->image)){
+							echo '<img class="col-md-2" src="'.url('/assets/products/'.$ad->items[1]->image).'" />';
+						}
+						echo'
+						<input name="url_2" value="'.$ad->items[1]->url.'" placeholder="Image link" type="text" class="form-control"/>
+						<input name="image_2" type="file" class="form-control"/>
+						<hr>';
+						if (!empty($ad->items[2]->image)){
+							echo '<img class="col-md-2" src="'.url('/assets/products/'.$ad->items[2]->image).'" />';
+						}
+						echo'
+						<input name="url_3" value="'.$ad->items[2]->url.'" placeholder="Image link" type="text" class="form-control"/>
+						<input name="image_3" type="file" class="form-control"/>
+						</div>
+						<input name="edit" type="submit" value="Save" class="btn btn-primary" />
+				</fieldset>
 				</form>';
 	} else {
 		$bold = "style='font-weight:bold;'";
@@ -54,12 +71,12 @@
 <?php
 		echo notices()."<ul>";
 		foreach ($ads as $bloc){
-			echo '<li id="'.$bloc->id.'" class="m"><h4>'.$bloc->type.'</h4>
+			echo '<li id="'.$bloc->id.'" class="m"><h4>'.$bloc->name.'</h4>
 			<div class="tools">
-			<a href="builder/delete/'.$bloc->id.'"><i class="icon-trash"></i></a>
-			<a href="builder/edit/'.$bloc->id.'"><i class="icon-pencil"></i></a>
+			<a href="ads/delete/'.$bloc->id.'"><i class="icon-trash"></i></a>
+			<a href="ads/edit/'.$bloc->id.'"><i class="icon-pencil"></i></a>
 			</div>
-			<p>'.mb_substr(htmlspecialchars($bloc->content),0,50).'</p></li>';
+			<br></li>';
 		}
 		echo "</ul><button class='btn save'>Save</button>";
 	}
@@ -87,7 +104,7 @@
 		$('ul').sortable({connectWith:"ul"});
 		$('.save').click(function(){
 			var data= serializeList($('ul'));
-			$.post('builder/save',{"data":data,_token: '<?=csrf_token()?>'},function(d){
+			$.post('ads/save',{"data":data,_token: '<?=csrf_token()?>'},function(d){
 				alert('Saved');
 			});
 		});

@@ -42,7 +42,7 @@
 					</td>
 					<td class="col-s-2"><span class="price"><?=$product['price']?></span></td>
 					<td class="col-s-2"><span class="price"><?=$product['total']?></span></td>
-					<td class="col-s-1"><a href="javascript:void(0);" data-id="<?=$product['id']?>" class="remove-product remove-item ti-android-delete"></a></td>
+					<td class="col-s-1"><a href="javascript:void(0);" data-id="<?=$product['id']?>" class="remove-product remove-cart remove-item ti-android-delete"></a></td>
 				</tr>
 				<?php endforeach; ?>
 			</tbody>

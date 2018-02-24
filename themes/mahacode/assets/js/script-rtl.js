@@ -7,10 +7,6 @@ jQuery(document).ready(function ($) {
         $(this).siblings(".cart-dropdown").slideToggle(500);
     });
     
-    $(".cart-area .cart-dropdown ul li .info .remove-item").on("click", function(e) {
-        e.preventDefault();
-        $(this).parent(".info").parent("li").remove();
-    });
     
     $(".main-slider").slick({
         rtl:true,

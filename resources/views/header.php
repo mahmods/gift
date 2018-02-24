@@ -30,7 +30,6 @@
 			<?php if ($stripe->active == 1) {?>var stripe_key = '<?=json_decode($stripe->options,true)['key']?>';<?php }?>
 			<?=$style->js ?>
 		</script>
-		<script src="<?=$tp ?>/assets/main.js"></script>
 	</head>
 	<body dir="ltr" <?php if ($page == true) {?>class="page"<?php }?>>
 		<!-- Top Navigation -->

@@ -23,7 +23,7 @@
 			<ul>
 				<li>
 					<span>رقم الهاتف</span>
-					<?=$customer->address->phone?>
+					<?=!empty($customer->address->phone) ? $customer->address->phone : ""?>
 				</li>
 			</ul>
 		</div>
@@ -32,16 +32,16 @@
 			<ul>
 				<li>
 					<span>العنوان</span>
-					<?=$customer->address->address_2?>
+					<?=!empty($customer->address->address_2) ? $customer->address->address_2 : ""?>
 				</li>
 				<li>
-					<?=$customer->address->address_1?>
+					<?=!empty($customer->address->address_1) ? $customer->address->address_1 : ""?>
 				</li>
 				<li>
-					<?=$customer->address->region?>
+					<?=!empty($customer->address->region) ? $customer->address->region : ""?>
 				</li>
 				<li>
-					<?=$customer->address->city?>
+					<?=!empty($customer->address->city) ? $customer->address->city : ""?>
 				</li>
 			</ul>
 		</div>

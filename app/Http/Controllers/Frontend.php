@@ -123,7 +123,8 @@ class Frontend extends Controller
 		$links = $this->footer;
 		$tp = url("/themes/".$this->cfg->theme);
 		$cfg = $this->cfg;
-		return view('footer')->with(compact('social','links', 'tp', 'cfg'))->render();
+		$lang = App::getLocale();
+		return view('footer')->with(compact('social','links', 'tp', 'cfg', 'lang'))->render();
 	}
 	public function language(Request $request, $language_code)
 	{
@@ -347,7 +348,8 @@ class Frontend extends Controller
 				if(\App\Customer::where(['email' => $data['email']])->count() > 0) {
 					$error = 'This email is already registerd !';
 				} else {
-					\App\Customer::insert($data);
+					$id = \App\Customer::insertGetID($data);
+					\App\Address::insert(['customer_id'=> $id]);
 					$error = false;
 				}
 			} else {

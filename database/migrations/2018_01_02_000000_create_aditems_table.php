@@ -17,8 +17,8 @@ class CreateAdItemsTable extends Migration
             $table->increments('id');
             $table->integer('ad_id')->unsigned();
             $table->foreign('ad_id')->references('id')->on('ads')->onDelete('cascade');
-            $table->text('image');
-            $table->text('url');
+            $table->text('image')->nullable();
+            $table->text('url')->nullable();
             $table->integer('o')->default('1');
         });
     }

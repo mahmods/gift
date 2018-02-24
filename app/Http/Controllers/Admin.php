@@ -1139,7 +1139,7 @@ class Admin extends Controller
 					if (in_array($file->getClientOriginalExtension(), array("jpg", "png", "gif", "bmp"))){
 						$name = $file->getClientOriginalName();
 						$item['image'] = $image = $ad.'-'.$order.'.'.$file->getClientOriginalExtension();
-						$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'products';
+						$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'ads';
 						$file->move($path,$image);
 					} else {
 						notices("warning","$name is not a valid format");
@@ -1180,7 +1180,7 @@ class Admin extends Controller
 					$name = $file->getClientOriginalName();
 					if (in_array($file->getClientOriginalExtension(), array("jpg", "png", "gif", "bmp"))){
 						$image = $action_id.'-'.$order.'.'.$file->getClientOriginalExtension();
-						$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'products';
+						$path = base_path().DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'ads';
 						$file->move($path,$image);
 						$storedItems[$index]->update(['image' => $image]);
 					} else {

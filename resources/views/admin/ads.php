@@ -39,21 +39,21 @@
 						<div class="form-group">
 						<label class="control-label">Images</label>';
 						if (!empty($ad->items[0]->image)){
-							echo '<img class="col-md-2" src="'.url('/assets/products/'.$ad->items[0]->image).'" />';
+							echo '<img class="col-md-2" src="'.url('/assets/ads/'.$ad->items[0]->image).'" />';
 						}
 						echo '
 						<input name="url_1" value="'.$ad->items[0]->url.'" placeholder="Image link" type="text" class="form-control"/>
 						<input name="image_1" type="file" class="form-control"/>
 						<hr>';
 						if (!empty($ad->items[1]->image)){
-							echo '<img class="col-md-2" src="'.url('/assets/products/'.$ad->items[1]->image).'" />';
+							echo '<img class="col-md-2" src="'.url('/assets/ads/'.$ad->items[1]->image).'" />';
 						}
 						echo'
 						<input name="url_2" value="'.$ad->items[1]->url.'" placeholder="Image link" type="text" class="form-control"/>
 						<input name="image_2" type="file" class="form-control"/>
 						<hr>';
 						if (!empty($ad->items[2]->image)){
-							echo '<img class="col-md-2" src="'.url('/assets/products/'.$ad->items[2]->image).'" />';
+							echo '<img class="col-md-2" src="'.url('/assets/ads/'.$ad->items[2]->image).'" />';
 						}
 						echo'
 						<input name="url_3" value="'.$ad->items[2]->url.'" placeholder="Image link" type="text" class="form-control"/>

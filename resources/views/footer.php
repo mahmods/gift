@@ -97,6 +97,10 @@
 
 	<!-- Required JS Files -->
 	<script src="<?=$tp ?>/assets/js/tornado.js"></script>
+	<?php if ($lang == "ar") : ?>
 	<script src="<?=$tp ?>/assets/js/script-rtl.js"></script>
+	<?php else: ?>
+	<script src="<?=$tp ?>/assets/js/script.js"></script>
+	<?php endif; ?>
 	</body>
 </html>

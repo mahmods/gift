@@ -16,11 +16,12 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('customer')->default('0');
-            $table->text('name');
-            $table->text('email');
+            $table->text('first_name');
+            $table->text('last_name');
+            $table->text('region');
             $table->text('city');
-            $table->text('address');
-            $table->string('mobile', 255);
+            $table->text('address_details');
+            $table->string('phone', 255);
             $table->text('products');
             $table->decimal('shipping', 11, 2)->default('0.00');
             $table->decimal('summ', 11, 2)->default('0.00');

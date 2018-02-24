@@ -311,6 +311,12 @@ class Frontend extends Controller
 				$data = array();
 				$data['products'] = json_encode($products,true);
 				$data['customer'] = (session('customer') == '' ? '0' : customer('id'));
+				$data['first_name'] = session('checkout.first_name');
+				$data['last_name'] = session('checkout.last_name');
+				$data['region'] = session('checkout.region');
+				$data['city'] = session('checkout.city');
+				$data['address_details'] = session('checkout.address_details');
+				$data['phone'] = session('checkout.phone');
 				$data['summ'] = $total;
 				$data['time'] = time();
 				$data['date'] = date('Y-m-d');

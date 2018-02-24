@@ -14,11 +14,7 @@ class Customer extends Model
         'password', 'sid',
     ];
 
-    public function addresses() {
-        return $this->hasMany('App\Address');
-    }
-
-    public function mainAddress() {
+    public function address() {
         return $this->hasOne('App\Address');
     }
 }

@@ -438,7 +438,7 @@ class Frontend extends Controller
 		$orders = \App\Order::where('customer',customer('id'))->orderby('id','desc')->get();
 		$customer = \App\Customer::where('id', customer('id'))->first();
 		$footer = $this->footer();
-		return view('account')->with(compact('header','orders','footer', 'customer'))->render(); 
+		return view('account.index')->with(compact('header','orders','footer', 'customer'))->render(); 
 	}
 	public function accountEdit(Request $request)
 	{
@@ -463,15 +463,8 @@ class Frontend extends Controller
 	}
 
 	public function address(Request $request) {
-		$header = $this->header(translate('Addresses'),false,true);
-		$footer = $this->footer();
 		$customer = \App\Customer::where('id', customer('id'))->first();
-		$addresses = $customer->addresses;
-		return view("account.address")->with(compact('header', 'footer', 'addresses'));
-	}
-
-	public function addressEdit(Request $request, $id) {
-		$address = \App\Address::where('id', $id)->first();
+		$address = $customer->address;
 		if ($request->isMethod("post")) {
 			$rules = [
 				'first_name' => 'required',
@@ -496,7 +489,7 @@ class Frontend extends Controller
 		}
 		$header = $this->header(translate('Addresses'),false,true);
 		$footer = $this->footer();
-		return view("account.address_edit")->with(compact('header', 'footer', 'address'));
+		return view("account.address")->with(compact('header', 'footer', 'address'));
 	}
 
 	public function invoice($order_id)

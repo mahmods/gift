@@ -28,6 +28,9 @@ class Frontend extends Controller
 			// redirect to the installer
 			return redirect('install')->send();
 		}
+		if(customer("id") == '') {
+			session()->forget('customer');
+		}
 		$this->cfg = \App\Config::first();
 		$this->style = \App\Style::first();
 		$this->menu = \App\Menu::where('parent',0)->orderby('o','asc')->get();

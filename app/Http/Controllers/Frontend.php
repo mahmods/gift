@@ -348,7 +348,7 @@ class Frontend extends Controller
 				if(\App\Customer::where(['email' => $data['email']])->count() > 0) {
 					$error = 'This email is already registerd !';
 				} else {
-					$id = \App\Customer::insertGetID($data);
+					$id = \App\Customer::insertGetId($data);
 					\App\Address::insert(['customer_id'=> $id]);
 					$error = false;
 				}

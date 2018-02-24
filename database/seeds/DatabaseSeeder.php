@@ -258,12 +258,6 @@ class DatabaseSeeder extends Seeder
 			(238, \'ZM\', \'Zambia\', 260, 0, 0),
             (239, \'ZW\', \'Zimbabwe\', 263, 0, 0);'));
             
-            DB::statement(DB::raw('INSERT INTO `blocs` (`id`, `area`, `type`, `o`) VALUES
-			(2, \'home\', \'categoriesSlider\', 1),
-			(3, \'home\', \'category\', 2),
-			(4, \'home\', \'category\', 3),
-			(5, \'home\', \'category\', 4);'));
-            
             DB::statement(DB::raw('INSERT INTO `categories` (`id`, `path`, `parent`) VALUES
 			(2, \'men\', \'0\'),
 			(3, \'women\', \'0\'),
@@ -347,5 +341,48 @@ class DatabaseSeeder extends Seeder
 
             DB::statement(DB::raw('INSERT INTO `tracking` (`id`, `clicks`, `code`, `name`) VALUES
 			(1, 0, \'fb\', \'Facebook Campaign\');'));
+
+			DB::statement(DB::raw("INSERT INTO `ads` (`id`, `name`) VALUES
+			(3, 'Home slider'),
+			(5, 'top ads'),
+			(6, 'Ads block 1'),
+			(12, 'Ads block 2'),
+			(13, 'Ads block 3');"));
+
+			DB::statement(DB::raw("INSERT INTO `ad_items` (`id`, `ad_id`, `image`, `url`, `o`) VALUES
+			(6, 3, '3-0.png', 'https://www.google.com.eg', 1),
+			(7, 3, '3-1.png', 'https://www.google.com.eg', 1),
+			(8, 3, '3-2.png', 'https://www.google.com.eg', 1),
+			(9, 5, '5-0.png', 'https://www.google.com.eg', 1),
+			(10, 5, '5-1.png', 'https://www.google.com.eg', 1),
+			(11, 5, '5-2.png', 'https://www.google.com.eg', 1),
+			(12, 6, '6-0.png', 'https://www.google.com.eg', 1),
+			(13, 6, '6-1.png', 'https://www.google.com.eg', 1),
+			(14, 6, '6-2.png', 'https://www.google.com.eg', 1),
+			(25, 12, '12-0.png', 'https://www.google.com.eg', 1),
+			(26, 12, '12-1.png', 'https://www.google.com.eg', 1),
+			(27, 12, NULL, NULL, 1),
+			(28, 13, '13-0.png', 'https://www.google.com.eg', 1),
+			(29, 13, '13-1.png', 'https://www.google.com.eg', 1),
+			(30, 13, '13-2.png', NULL, 1);"));
+
+			DB::statement(DB::raw("INSERT INTO `blocs` (`id`, `area`, `type`, `o`) VALUES
+			(6, 'home', 'ads', 1),
+			(7, 'home', 'categoriesSlider', 1),
+			(8, 'home', 'ads', 1),
+			(9, 'home', 'category', 1),
+			(10, 'home', 'category', 1),
+			(11, 'home', 'ads', 1),
+			(12, 'home', 'category', 1);
+			"));
+
+			DB::statement(DB::raw("INSERT INTO `blocsmeta` (`id`, `bloc_id`, `meta_key`, `meta_value`) VALUES
+			(1, 6, 'action_id', '6'),
+			(2, 8, 'action_id', '12'),
+			(3, 9, 'action_id', '2'),
+			(4, 10, 'action_id', '3'),
+			(5, 11, 'action_id', '13'),
+			(6, 12, 'action_id', '4');
+			"));
     }
 }

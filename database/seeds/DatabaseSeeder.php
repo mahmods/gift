@@ -274,12 +274,12 @@ class DatabaseSeeder extends Seeder
             (4, \'ملابس أطفال\', \'ar\');'));
             
             DB::statement(DB::raw('INSERT INTO `fields` (`id`, `name`, `code`) VALUES
-			(1, \'Full name\', \'name\'),
-			(2, \'E-mail\', \'email\'),
-			(3, \'City\', \'city\'),
-			(4, \'Address\', \'address\'),
-			(5, \'Mobile\', \'mobile\'),
-            (6, \'Country\', \'country\');'));
+			(1, \'First name\', \'first_name\'),
+			(2, \'Last name\', \'last_name\'),
+			(3, \'region\', \'region\'),
+			(4, \'City\', \'city\'),
+			(5, \'Phone\', \'phone\'),
+            (6, \'address_details\', \'address_details\');'));
             
             DB::statement(DB::raw('INSERT INTO `footer` (`id`, `link`, `title`, `o`) VALUES
 			(1, \'page/about\', \'About us\', 1),

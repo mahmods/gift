@@ -53,10 +53,10 @@
 				$count = 0;
 				foreach($orders as $order){
 					echo'<div class="item order">
-					<h6>'.$order->name.'<div class="tools">
+					<h6>'.$order->first_name. ' ' . $order->last_name . '<div class="tools">
 					<a href="orders/delete/'.$order->id.'"><i class="icon-trash"></i></a>
 					</div></h6>
-					<p>'.$order->email.'</p></div>';
+					<p>'.$order->phone.'</p></div>';
 					$count++;
 				}
 				if($count == 0){

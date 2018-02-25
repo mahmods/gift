@@ -12,7 +12,7 @@
 		';
 		foreach($fields as $field){
 			$code = $field->code;
-			if ($code == 'country') {$order->$code = country($order->$code);}
+			//if ($code == 'country') {$order->$code = country($order->$code);}
 			echo '<div class="item order"><h6><b>'.$field->name.'</b> : '.$order->$code.'</h6></div>';
 		}
 		echo '</div>
@@ -120,14 +120,14 @@
 		echo notices();
 		foreach ($orders as $order){
 			echo'<div class="bloc">
-			<h5>'.$order->name.'<div class="tools">
+			<h5>'.$order->fullname.'<div class="tools">
 			<a href="orders/details/'.$order->id.'"><i class="icon-eye"></i></a>
 			<a href="orders/delete/'.$order->id.'"><i class="icon-trash"></i></a>
 			</div></h5>
 			<p>';
 			foreach($fields as $field){
 				$code = $field->code;
-				if ($field->code == 'country') {$order->$code = country($order->$code);}
+				//if ($field->code == 'country') {$order->$code = country($order->$code);}
 				echo $field->name.' : '.$order->$code.'<br/>';
 			}
 			echo '</p><div class="op">';

@@ -466,6 +466,16 @@ class Frontend extends Controller
 		$footer = $this->footer();
 		return view('account.index')->with(compact('header','orders','footer', 'customer'))->render(); 
 	}
+
+	public function orders()
+	{
+		$header = $this->header(translate('Account'),false,true);
+		$orders = \App\Order::where('customer',customer('id'))->orderby('id','desc')->get();
+		$customer = \App\Customer::where('id', customer('id'))->first();
+		$footer = $this->footer();
+		return view('account.orders')->with(compact('header','orders','footer', 'customer'))->render(); 
+	}
+
 	public function accountEdit(Request $request)
 	{
 		$customer = \App\Customer::where('id', customer('id'))->first();

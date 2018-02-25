@@ -73,7 +73,7 @@
 				</ul>
 			</div>
 			
-			<div class="side-wideget">
+			<!--<div class="side-wideget">
 				<div class="section-head"><h2>الالوان</h2></div>
 				<div class="colors">
 					<a href="#" data-color="#ff6e87" title="Color Name" class="tooltip" data-placement="bottom"></a>
@@ -83,7 +83,7 @@
 					<a href="#" data-color="#f83536" title="Color Name" class="tooltip" data-placement="bottom"></a>
 					<a href="#" data-color="#f5af1a" title="Color Name" class="tooltip" data-placement="bottom"></a>
 				</div>
-			</div>
+			</div>-->
 			
 			<div class="side-wideget">
 				<div class="section-head"><h2>تصنيف حسب السعر</h2></div>
@@ -99,7 +99,7 @@
 				</div>
 			</div>
 			
-			<div class="side-wideget">
+			<!--<div class="side-wideget">
 				<div class="section-head"><h2>الطعم - النوع</h2></div>
 				<ul class="form-ui">
 					<li><label class="checkbox"><input type="checkbox"> <span>جميع أنواع الكيك والجورميه</span></label></li>
@@ -115,7 +115,7 @@
 					<li><label class="checkbox"><input type="checkbox"> <span>ذا لايم تري كافيه</span></label></li>
 					<li><label class="checkbox"><input type="checkbox"> <span>شوكولاتة ميرزام</span></label></li>
 				</ul>
-			</div>
+			</div>-->
 		</div>
 	</div>
 </div>

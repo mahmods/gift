@@ -16,6 +16,7 @@ Route::match(['get', 'post'],'/login', 'Frontend@login');
 Route::match(['get', 'post'],'/reset-password/{key?}', 'Frontend@reset_password');
 Route::get('/account', 'Frontend@account')->middleware('Customer');
 Route::match(['get', 'post'],'/account/address', 'Frontend@address')->middleware('Customer');
+Route::match(['get'],'/account/orders', 'Frontend@orders')->middleware('Customer');
 Route::match(['get', 'post'],'/account/address/{id}/edit', 'Frontend@addressEdit')->middleware('Customer');
 Route::match(['get', 'post'],'/account/edit', 'Frontend@accountEdit')->middleware('Customer');
 Route::match(['get', 'post'],'/profile', 'Frontend@profile')->middleware('Customer');

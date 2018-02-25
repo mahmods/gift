@@ -33,11 +33,11 @@
                         <a href="./account/address">عنواني</a>
                     </li>
                     <li>
-                        <a href="./orders">طلباتي</a>
+                        <a href="./account/orders">طلباتي</a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="./coupon">كوبونات الخصم</a>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
         </div>

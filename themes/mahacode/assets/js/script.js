@@ -83,7 +83,7 @@ jQuery(document).ready(function ($) {
     })
     
     // Stpes System
-    $(".steps-system .step-content:first-of-type").addClass("active")
+    //$(".steps-system .step-content:first-of-type").addClass("active")
     
     $("body").on("click",".steps-system .step-content .prev-step",function(){
         var contentId = $(this).attr("href");

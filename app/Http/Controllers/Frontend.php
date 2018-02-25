@@ -692,6 +692,7 @@ class Frontend extends Controller
 		$header = $this->header(translate('Success'),false,false,true);
 		// remove cart products after the successfull payment
 		setcookie('cart', '',time()+31536000,'/');
+		$tp = url("/themes/".$this->cfg->theme);
 		$footer = $this->footer();
 		return view('success')->with(compact('header','footer'));
 	}

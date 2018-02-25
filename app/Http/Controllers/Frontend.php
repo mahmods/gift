@@ -234,16 +234,31 @@ class Frontend extends Controller
 						'region' => 'required',
 						'city' => 'required',
 						];
-						$validator = Validator::make($request->all(), $rules)->validate();
-						foreach ($request->all() as $key => $value) {
-							$request->session()->put('checkout.'.$key, $value);
-						}
-						return redirect("checkout/summary");
+					$validator = Validator::make($request->all(), $rules)->validate();
+					foreach ($request->all() as $key => $value) {
+						$request->session()->put('checkout.'.$key, $value);
 					}
+					return redirect("checkout/gift_cart");
+				}
+				return view('checkout')->with(compact('header','footer', 'step'));
+				break;
+			case 'gift_cart':
+				$step = 2;
+				if ($request->isMethod("post")) {
+					$rules = [
+						'cart_name' => 'required',
+						'cart_message' => 'max:150',
+						];
+					$validator = Validator::make($request->all(), $rules)->validate();
+					foreach ($request->all() as $key => $value) {
+						$request->session()->put('checkout.'.$key, $value);
+					}
+					return redirect("checkout/summary");
+				}
 				return view('checkout')->with(compact('header','footer', 'step'));
 				break;
 			case 'summary':
-				$step = 2;
+				$step = 3;
 				$products = array();
 				// get the product ids
 				$cart_items = $this->cart;
@@ -282,7 +297,7 @@ class Frontend extends Controller
 				return view('checkout')->with(compact('header','footer', 'step', 'products', 'total_price'));
 				break;
 			case 'payment':
-				$step = 3;
+				$step = 4;
 				$cart_items = $this->cart;
 				$ids = "";
 				foreach($cart_items as $id=>$name){

@@ -311,10 +311,11 @@ class DatabaseSeeder extends Seeder
             (1, \'Dollar\', \'$\', \'1.00\', 1);'));
             
             DB::statement(DB::raw('INSERT INTO `payments` (`id`, `title`, `code`, `options`, `active`) VALUES
-			(1, \'PayPal\', \'paypal\', \'{\"email\":\"payments@shop.com\"}\', 1),
-			(2, \'Credit Card\', \'stripe\', \'{\"key\":\"YOUR_KEY_HERE\",\"secret\":\"YOUR_SECRET_HERE\"}\', 1),
+			(1, \'PayPal\', \'paypal\', \'{\"email\":\"payments@shop.com\"}\', 1);'));
+			
+			/* (2, \'Credit Card\', \'stripe\', \'{\"key\":\"YOUR_KEY_HERE\",\"secret\":\"YOUR_SECRET_HERE\"}\', 1),
 			(3, \'Cash on delivery\', \'cash\', \'{}\', 1),
-            (4, \'Bank transfer\', \'bank\', \'{\"AccountName\":\"Name\",\"AccountNumber\":\"123456\",\"BankName\":\"Bank\",\"RoutingNumber\":\"123456\",\"IBAN\":\"123456\",\"SWIFT\":\"123456\"}\', 1);'));
+            (4, \'Bank transfer\', \'bank\', \'{\"AccountName\":\"Name\",\"AccountNumber\":\"123456\",\"BankName\":\"Bank\",\"RoutingNumber\":\"123456\",\"IBAN\":\"123456\",\"SWIFT\":\"123456\"}\', 1);')); */
             
             DB::statement(DB::raw('INSERT INTO `products` (`id`, `category`, `price`, `images`, `quantity`, `download`, `options`) VALUES
 			(29, 2, 13.00, \'29-0.png,29-1.png,29-2.png\', \'100\',\'\',\'[]\'),

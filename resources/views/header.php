@@ -21,15 +21,6 @@
 		<link href="<?=$tp ?>/assets/nouislider.min.css" rel="stylesheet">
 		<script src="<?=$tp ?>/assets/plugins.js"></script>
 		<script src="<?=$tp ?>/assets/nouislider.min.js"></script>
-		<?php if ($stripe->active == 1) {?><script type="text/javascript" src="https://js.stripe.com/v2/" async></script><?php }?>
-		<script>
-			var sitename = '<?=translate($cfg->name) ?>';
-			var empty_cart = '<?=translate('Your cart is empty') ?>';
-			var checkout = '<?=translate('Checkout') ?>';
-			var continue_to_payment = '<?=translate('Continue') ?>';			
-			<?php if ($stripe->active == 1) {?>var stripe_key = '<?=json_decode($stripe->options,true)['key']?>';<?php }?>
-			<?=$style->js ?>
-		</script>
 	</head>
 	<body dir="ltr" <?php if ($page == true) {?>class="page"<?php }?>>
 		<!-- Top Navigation -->

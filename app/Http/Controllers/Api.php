@@ -503,6 +503,7 @@ class Api extends Controller
 			$shipping = $order_json->shipping;
 			$order = json_decode($order_json->products,true);
 			$ids = "";
+			//dd('ssssssssss');
 			foreach($order as $o){
 				$ids = $ids . $o['id'] . ",";
 				$q[$o['id']] = $o['quantity'];
@@ -556,9 +557,11 @@ class Api extends Controller
 				$querystring .= "notify_url=".urlencode($notify_url);
 				$querystring .= "&custom=".request()->order;			
 				// Redirect to paypal IPN
-				header('location:https://www.paypal.com/cgi-bin/webscr'.$querystring);
+				header('location:https://www.sandbox.paypal.com/cgi-bin/webscr'.$querystring);
+				//header('location:https://www.paypal.com/cgi-bin/webscr'.$querystring);
 				exit();
 			} else {
+				//dd("ssssss");
 				// Response from Paypal
 				// read the post from PayPal system and add 'cmd'
 				$req = 'cmd=_notify-validate';
@@ -578,15 +581,16 @@ class Api extends Controller
 				$data['payer_email'] 		= request()->payer_email;
 				$data['order'] 		    	= request()->custom;
 				echo $payment = json_encode($data, true);
-				
 				// post back to PayPal system to validate
 				$header = "POST /cgi-bin/webscr HTTP/1.1\r\n";
 				$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
-				$header .= "Host: www.paypal.com\r\n";  // www.paypal.com for a live site
+				$header .= "Host: www.sandbox.paypal.com\r\n";  // www.paypal.com for a live site
+				//$header .= "Host: www.paypal.com\r\n";  // www.paypal.com for a live site
 				$header .= "Content-Length: " . strlen($req) . "\r\n";
 				$header .= "Connection: close\r\n\r\n";
 				
-				$fp = fsockopen ('ssl://www.paypal.com', 443, $errno, $errstr, 30);
+				//$fp = fsockopen ('ssl://www.paypal.com', 443, $errno, $errstr, 30);
+				$fp = fsockopen ('ssl://www.sandbox.paypal.com', 443, $errno, $errstr, 30);
 				
 				if (!$fp) {
 					// HTTP ERROR

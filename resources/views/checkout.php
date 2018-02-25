@@ -21,7 +21,7 @@
             <li class="ti-<?=$step == 4 ? "refresh " : ($step > 4 ? "check-a " : "clock ")?>">الدفع</li>
         </ul>
         <!-- Step Content -->
-        <div class="step-content <?=$step == 1 ? " active " : " "?> " id="step-1">
+        <div class="step-content <?=$step == 1 ? "active" : ""?> " id="step-1">
             <?php if ($errors->any()): ?>
             <div class="alert danger">
                 All fields are required !

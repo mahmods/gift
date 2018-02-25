@@ -607,6 +607,8 @@ class Api extends Controller
 								\App\Order::where('id',$data['order'])->update(['payment' => $payment]);
 								// Send download link if digital product
 								$this->send_downloads($data['order']);
+								// Clear Session
+								session()->forget('checkout');
 								// for debugging
 								logger('Successful payment');
 							} else {

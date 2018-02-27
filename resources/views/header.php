@@ -51,8 +51,8 @@
                 <a href="<?=url('') ?>" class="logo"><img src="<?=$tp ?>/assets/img/logo.png" alt=""></a>
                 
                 <form class="search-box">
-                    <input id="search-input" type="text" placeholder="كلمات البحث">
-					<input type="submit" value="ابحث الان">
+                    <input id="search-input" type="text" placeholder="<?=translate('Search for...') ?>">
+					<input type="submit" value="<?=translate('Search') ?>">
 					<div id="search-results">
 					<!-- TODO search results needs redesign -->
 					</div>
@@ -64,7 +64,7 @@
                     <div class="cart-area">
                         <a href="#" class="cart-btn account-btn">
                             <i class="person-icon"></i>
-                            <h3><?=translate('Account') ?> <span>الملف الشخصي</span></h3>
+                            <h3><?=translate('Account') ?> <span><?=translate('Account') ?></span></h3>
 						</a>
                         <ul class="cart-dropdown">
 							<?php if (empty(session('customer'))) {?>
@@ -122,7 +122,7 @@
 					</ul>
 				</div>
 				
-				<a href="#" data-modal="hediatk-helper" class="helper-button">اعثر على الهديه المثاليه</a>
+				<a href="#" data-modal="hediatk-helper" class="helper-button"><?=translate('Find the perfect gift') ?></a>
 			</div>
 		</div>
 		<!-- // Bottom Navigation -->
@@ -132,7 +132,7 @@
 		<div id="cart">
 			<button class="toggle-cart"><i class="icon-close"></i></button>
 			<div id="cart-header">
-				Cart
+				<?=translate('Cart') ?>
 				<button class="pull-right" onclick="$('#cart').toggle('300');"><i class="icon-close"></i></button>
 			</div>
 			<div id="cart-content">

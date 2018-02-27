@@ -1,7 +1,7 @@
 <?php $categories = \App\Category::where("parent", "0")->orderby('id','desc')->get(); ?>
 <!-- Categorys -->
 <div class="section-head">
-    <h2>الفئات والتصنيفات</h2>
+    <h2><?=translate("Categories")?></h2>
 </div>
 
 <div class="carousel-slider row">

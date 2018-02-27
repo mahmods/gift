@@ -33,7 +33,7 @@
 		<div class="container">
 			<div class="row row-stretch">
 				<div class="col-s-12 col-m-6 col-l-4">
-					<h3>نبذه عن هديتك</h3>
+					<h3><?=translate('About Us') ?></h3>
 					<p><?=$cfg->footer_about ?></p>
 					<div class="social">
 					<?php foreach($social as $platform => $account) {?>
@@ -43,27 +43,15 @@
 				</div>
 				
 				<div class="col-s-12 col-m-6 col-l-3">
-					<h3>القائمة</h3>
+					<h3><?=translate('Menu') ?></h3>
 					<ul>
 					<?php foreach ($links as $link) {?>
 						<li><a href="<?=$link->link ?>"><?=translate($link->title) ?></a></li>
 					<?php } ?>
 					</ul>
-				</div>
-				
-				<!-- <div class="col-s-12 col-m-6 col-l-3">
-					<h3>المدونة</h3>
-					<ul>
-						<li><a href="#">معلومات العميل</a></li>
-						<li><a href="#">عناوين</a></li>
-						<li><a href="#">طلبات</a></li>
-						<li><a href="#">عربة التسوق</a></li>
-						<li><a href="#">قائمة الملاحظة</a></li>
-					</ul>
-				</div> -->
-				
+				</div>			
 				<div class="col-s-12 col-m-6 col-l-2">
-					<h3>طرق الدفع</h3>
+					<h3><?=translate('Payment methods') ?></h3>
 					<img src="<?=$tp ?>/assets/img/payments.png" alt="">
 				</div>
 			</div>
@@ -71,8 +59,7 @@
 
 		<div class="copyrights">
 			<div class="container">
-				جميع الحقوق محفوظة لــ هديتك.كوم
-				
+				<?=translate('copyright_text') ?>
 				<div class="mahacode-copyrights">
 					<a href="http://mahacode.com/" target="_blank" class="logo"><img src="<?=$tp ?>/assets/img/mahacode-white.png" alt=""></a>
 					<div class="mc-tooltip">
